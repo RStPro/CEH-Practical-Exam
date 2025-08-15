@@ -92,6 +92,10 @@
 - [Stegdetect & Foremost](/12-Steganography/Stegdetect%20&%20Foremost.md): Tools for detecting steganography in images and recovering hidden or deleted files.
 - [steghide](/12-Steganography/steghide.md): Tool for embedding and extracting data within image and audio files.
 
+## 13-CEH-Labs_Man
+
+## 14-Metasploit
+
 ## Windows-Tools
 - [BloodHound](/Windows-Tools/BloodHound.md)
 - [Curl](/Windows-Tools/Curl.md)

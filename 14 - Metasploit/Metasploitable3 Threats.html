@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Metasploitable3 — Known Malicious Files & Services</title>
+  <style>
+    body{font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;background:#f7fafc;color:#0f1724;margin:0;padding:24px}
+    .wrap{max-width:980px;margin:0 auto;background:white;padding:28px;border-radius:10px;box-shadow:0 8px 30px rgba(2,6,23,0.06)}
+    h1{margin-top:0;font-size:24px}
+    h2{font-size:18px;margin-top:20px}
+    p{color:#334155}
+    ul{margin:8px 0 16px 20px}
+    pre{background:#0b1220;color:#e6f0ff;padding:12px;border-radius:8px;overflow:auto}
+    table{width:100%;border-collapse:collapse;margin:12px 0}
+    th,td{border:1px solid #e6eef6;padding:8px;text-align:left}
+    .note{background:#f1f7ff;border-left:4px solid #3b82f6;padding:10px;border-radius:6px}
+    .small{font-size:13px;color:#64748b}
+    .footer{margin-top:18px;font-size:13px;color:#475569}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Metasploitable3 — Intentionally Malicious Files & Vulnerable Services</h1>
+    <p class="small">This document lists the common backdoors, web shells, vulnerable apps, misconfigurations, and safety advice you can expect to find in Metasploitable3. The VM is intentionally insecure for learning and testing; treat it like a live hostile environment and keep it isolated.</p>
+
+    <h2>1. Web Shells & Backdoors</h2>
+    <p>Antivirus products may flag these as <code>Backdoor</code>, <code>Webshell</code>, or similar.</p>
+    <ul>
+      <li><strong>Backdoor:ASP/Dirtelti</strong> — ASP-based webshells or malicious ASP scripts that enable remote command execution.</li>
+      <li><strong>PHP webshells</strong> (e.g., <code>c99.php</code>, <code>r57.php</code>) — common in older PHP apps and intentionally included in web directories.</li>
+      <li><strong>JSP web shells</strong> — present in older Java/Tomcat web apps.</li>
+    </ul>
+
+    <h2>2. Vulnerable Web Applications</h2>
+    <p>These apps contain known vulnerabilities and often include exploit-ready files:</p>
+    <ul>
+      <li><strong>DVWA (Damn Vulnerable Web App)</strong></li>
+      <li><strong>Mutillidae II</strong></li>
+      <li><strong>WebGoat</strong></li>
+      <li><strong>Joomla (outdated versions)</strong> with RCE/SQLi vulnerabilities</li>
+      <li><strong>Drupal (old versions)</strong> — e.g., "Drupalgeddon" style issues</li>
+      <li><strong>ColdFusion 8</strong> — outdated admin panels and endpoints</li>
+      <li><strong>Tomcat Manager</strong> with default or weak credentials</li>
+    </ul>
+
+    <h2>3. Misconfigured & Weak Services</h2>
+    <p>Services intentionally left insecure to practice exploitation and post-exploitation:</p>
+    <ul>
+      <li><strong>FTP</strong> with anonymous login and writable directories</li>
+      <li><strong>Telnet</strong> (cleartext login)</li>
+      <li><strong>SMB</strong> shares accessible without proper permissions</li>
+      <li><strong>VNC</strong> with no or weak authentication</li>
+      <li><strong>MySQL</strong> root with empty password</li>
+      <li><strong>PostgreSQL</strong> with default credentials</li>
+      <li>Various <strong>unpatched</strong> services and old packages (Windows & Linux)</li>
+    </ul>
+
+    <h2>4. Intentional Malware Samples & Payloads</h2>
+    <ul>
+      <li>Stored <strong>Metasploit payloads</strong> and executables in web directories for detection and practice.</li>
+      <li>Reverse shell scripts (<code>*.sh</code>, <code>*.bat</code>, <code>*.asp</code>, <code>*.php</code>).</li>
+      <li><strong>Meterpreter</strong> binaries used in demos and labs.</li>
+    </ul>
+
+    <h2>5. Known Default Credentials (examples)</h2>
+    <table>
+      <thead><tr><th>Service / App</th><th>Default Credentials</th></tr></thead>
+      <tbody>
+        <tr><td>Tomcat Manager</td><td><code>tomcat / tomcat</code></td></tr>
+        <tr><td>MySQL</td><td><code>root / (empty)</code></td></tr>
+        <tr><td>Postgres</td><td><code>postgres / postgres</code></td></tr>
+        <tr><td>SMB / OS</td><td><code>msfadmin / msfadmin</code></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Safety Precautions</h2>
+    <div class="note">
+      <ul>
+        <li><strong>Network isolation:</strong> Always run Metasploitable3 on a Host-Only or Internal network. Do not expose it to your home/office network or the internet.</li>
+        <li><strong>No shared folders:</strong> Avoid mapping host folders into the VM to prevent accidental contamination of your host filesystem.</li>
+        <li><strong>Snapshots:</strong> Take a clean snapshot after initial deploy so you can revert when needed.</li>
+        <li><strong>Use only in lab:</strong> Never use these images for production purposes.</li>
+        <li><strong>Data handling:</strong> Do not upload suspicious files from the VM to public services or email them.</li>
+      </ul>
+    </div>
+
+    <h2>Want a Threat Map?</h2>
+    <p>If you like, I can generate a visual <strong>threat map</strong> showing typical attack paths: open ports, exploitable services, web app entry points, and where backdoors/webshells commonly reside. This helps plan scanning and exploitation workflows for CEH practice.</p>
+
+    <div class="footer">Generated for your CEH prep — treat Metasploitable3 as a deliberately hostile, isolated training environment.</div>
+  </div>
+</body>
+</html>

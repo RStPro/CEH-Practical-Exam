@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Metasploit Vulnerability Scanners — Quick Copy</title>
+  <style>
+    :root {
+      --bg: #0f1221;
+      --surface: #171a2e;
+      --muted: #2a2e4b;
+      --text: #e6e9f5;
+      --sub: #b8bcdc;
+      --accent: #7c9cff;
+      --accent-2: #8ef5c9;
+      --danger: #ff8e8e;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(1200px 700px at 20% -10%, #1a1f3c 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 120% 10%, #132a2a 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    .wrap { max-width: 1100px; margin: 48px auto; padding: 0 20px; }
+    header { display:flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 22px; }
+    h1 { font-size: clamp(22px, 3vw, 32px); margin: 0; letter-spacing: 0.3px; }
+    .sub { color: var(--sub); font-size: 14px; }
+
+    .toolbar { display:flex; flex-wrap: wrap; gap: 12px; margin: 18px 0 26px; }
+    .search {
+      flex: 1 1 380px;
+      display:flex; align-items:center; gap:10px;
+      background: var(--surface); border: 1px solid var(--muted);
+      border-radius: var(--radius); padding: 10px 12px;
+    }
+    .search input { flex:1; background: transparent; border: 0; outline: 0; color: var(--text); font-size: 15px; }
+    .chipbar { display:flex; gap: 8px; align-items:center; flex-wrap:wrap; }
+    .chip {
+      background: linear-gradient(180deg, #202545, #181c34);
+      border: 1px solid var(--muted);
+      color: var(--sub);
+      padding: 8px 10px; border-radius: 999px; font-size: 13px; cursor: pointer; user-select:none;
+    }
+    .chip.active { color: var(--text); border-color: var(--accent); box-shadow: 0 0 0 2px #7c9cff33 inset; }
+
+    .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+    .card {
+      background: linear-gradient(180deg, #151935, #10132a);
+      border: 1px solid var(--muted);
+      border-radius: var(--radius);
+      padding: 14px; display:flex; flex-direction: column; gap: 10px;
+    }
+    .cat { font-size: 12px; color: var(--accent-2); letter-spacing: .4px; text-transform: uppercase; }
+    .name { font-weight: 600; font-size: 16px; }
+    .path {
+      background: #0b0e22; border: 1px dashed #3a3e64; border-radius: 12px; padding: 8px 10px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 13px;
+      display:flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .row { display:flex; gap: 8px; flex-wrap: wrap; }
+    button {
+      background: linear-gradient(180deg, #2a315f, #222855);
+      border: 1px solid #3a4180; color: var(--text); border-radius: 11px; padding: 8px 10px; font-size: 13px; cursor: pointer;
+    }
+    button:active { transform: translateY(1px); }
+    .ghost { background: transparent; border-color: var(--muted); }
+
+    .pill { font-size: 12px; color: var(--sub); opacity:.9 }
+
+    .toast { position: fixed; right: 16px; bottom: 16px; background: #161a33; color: var(--text); border: 1px solid var(--muted); padding: 10px 12px; border-radius: 12px; opacity: 0; transform: translateY(8px); transition: all .2s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    footer { margin: 30px 0 10px; color: var(--sub); font-size: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Metasploit Vulnerability Scanners — Quick Copy</h1>
+        <div class="sub">Filter by category, search by name or path, and copy module paths or ready-to-run msfconsole snippets.</div>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="q" placeholder="Search modules… (e.g., ms17, smb, http)" />
+      </div>
+      <div class="chipbar" id="chips"></div>
+      <button id="copyAll" class="ghost" title="Copy all visible module paths">Copy all visible paths</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <footer>Tip: after copying a path, in <code>msfconsole</code> type <code>use &lt;path&gt;</code>, then <code>set RHOSTS</code> and <code>run</code>.</footer>
+  </div>
+
+  <div id="toast" class="toast">Copied!</div>
+
+  <script>
+    const modules = [
+      // SMB / Windows
+      {cat:'SMB / Windows', name:'MS17-010 (EternalBlue) Scanner', path:'auxiliary/scanner/smb/smb_ms17_010', note:'Detects WannaCry/EternalBlue'},
+      {cat:'SMB / Windows', name:'SMB Version', path:'auxiliary/scanner/smb/smb_version', note:'Baseline fingerprint'},
+      {cat:'SMB / Windows', name:'SMB Signing', path:'auxiliary/scanner/smb/smb_signing', note:'Detects signing requirements'},
+      {cat:'SMB / Windows', name:'MS08-067 Scanner', path:'auxiliary/scanner/smb/smb_ms08_067', note:'Legacy XP/2003'},
+
+      // HTTP / Web
+      {cat:'HTTP / Web', name:'HTTP PUT Enabled', path:'auxiliary/scanner/http/http_put', note:'Check upload via PUT'},
+      {cat:'HTTP / Web', name:'Directory Traversal', path:'auxiliary/scanner/http/http_traversal', note:'Generic traversal checks'},
+      {cat:'HTTP / Web', name:'HTTP Options', path:'auxiliary/scanner/http/options', note:'Server methods & config'},
+      {cat:'HTTP / Web', name:'Tomcat Manager Login', path:'auxiliary/scanner/http/tomcat_mgr_login', note:'Guess Tomcat creds'},
+
+      // FTP
+      {cat:'FTP', name:'FTP Anonymous Login', path:'auxiliary/scanner/ftp/anonymous', note:'Anonymous access'},
+      {cat:'FTP', name:'FTP Version', path:'auxiliary/scanner/ftp/ftp_version', note:'Service fingerprint'},
+
+      // Databases
+      {cat:'Databases', name:'MySQL Login', path:'auxiliary/scanner/mysql/mysql_login', note:'Weak/default creds'},
+      {cat:'Databases', name:'PostgreSQL Login', path:'auxiliary/scanner/postgres/postgres_login', note:'Weak/default creds'},
+      {cat:'Databases', name:'MSSQL Login', path:'auxiliary/scanner/mssql/mssql_login', note:'Weak/default creds'},
+
+      // RDP / Windows
+      {cat:'RDP', name:'BlueKeep (CVE-2019-0708) Scanner', path:'auxiliary/scanner/rdp/cve_2019_0708_bluekeep', note:'Checks classic RCE'},
+
+      // SNMP
+      {cat:'SNMP', name:'SNMP Login', path:'auxiliary/scanner/snmp/snmp_login', note:'Community strings'},
+
+      // SSH
+      {cat:'SSH', name:'SSH Login', path:'auxiliary/scanner/ssh/ssh_login', note:'Weak creds'},
+
+      // Elasticsearch (seen in your scan)
+      {cat:'Elasticsearch', name:'Elasticsearch Node Info', path:'auxiliary/scanner/elasticsearch/indices_enum', note:'Recon indices (older stacks)'},
+      {cat:'Elasticsearch', name:'Elasticsearch Node Stats', path:'auxiliary/scanner/elasticsearch/node_info', note:'Info leak'},
+    ];
+
+    // Build category chips
+    const cats = [...new Set(modules.map(m => m.cat))];
+    const chipsEl = document.getElementById('chips');
+    const state = { q: '', cats: new Set() };
+
+    cats.forEach(c => {
+      const el = document.createElement('div');
+      el.className = 'chip';
+      el.textContent = c;
+      el.onclick = () => {
+        if (state.cats.has(c)) state.cats.delete(c); else state.cats.add(c);
+        el.classList.toggle('active');
+        render();
+      };
+      chipsEl.appendChild(el);
+    });
+
+    document.getElementById('q').addEventListener('input', (e) => { state.q = e.target.value.toLowerCase(); render(); });
+
+    function copy(text, toastMsg='Copied!') {
+      navigator.clipboard.writeText(text).then(() => showToast(toastMsg));
+    }
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(window.__toast);
+      window.__toast = setTimeout(() => t.classList.remove('show'), 1200);
+    }
+
+    function msfSnippet(path) {
+      return `use ${path}\nset RHOSTS 192.168.56.0/24\nset THREADS 8\nrun`;
+    }
+
+    function render() {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      const q = state.q;
+      const activeCats = state.cats;
+      const items = modules.filter(m => (
+        (activeCats.size === 0 || activeCats.has(m.cat)) &&
+        (!q || (m.name.toLowerCase().includes(q) || m.path.toLowerCase().includes(q) || m.cat.toLowerCase().includes(q) || (m.note||'').toLowerCase().includes(q)))
+      ));
+
+      items.forEach(m => {
+        const card = document.createElement('div'); card.className = 'card';
+        card.innerHTML = `
+          <div class="cat">${m.cat}</div>
+          <div class="name">${m.name}</div>
+          <div class="path"><span>${m.path}</span>
+            <div class="row">
+              <button title="Copy module path" data-path>Copy</button>
+            </div>
+          </div>
+          <div class="row">
+            <button class="ghost" title="Copy ready-to-run msfconsole snippet" data-snip>Copy msfconsole snippet</button>
+            ${m.note ? `<span class="pill">${m.note}</span>` : ''}
+          </div>
+        `;
+        card.querySelector('[data-path]').onclick = () => copy(m.path, 'Module path copied');
+        card.querySelector('[data-snip]').onclick = () => copy(msfSnippet(m.path), 'Snippet copied');
+        grid.appendChild(card);
+      });
+    }
+
+    document.getElementById('copyAll').onclick = () => {
+      const q = state.q; const activeCats = state.cats;
+      const items = modules.filter(m => (
+        (activeCats.size === 0 || activeCats.has(m.cat)) &&
+        (!q || (m.name.toLowerCase().includes(q) || m.path.toLowerCase().includes(q) || m.cat.toLowerCase().includes(q) || (m.note||'').toLowerCase().includes(q)))
+      ));
+      if (!items.length) return showToast('No visible items');
+      copy(items.map(m => m.path).join('\n'), 'All visible paths copied');
+    };
+
+    render();
+  </script>
+</body>
+</html>

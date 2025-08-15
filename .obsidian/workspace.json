@@ -171,12 +171,22 @@
   },
   "active": "93f33f49858f3fb1",
   "lastOpenFiles": [
-    "01-Reconnaissance/DNSRecon.md",
+    "14 - Metasploit/scanner vulnerabilities.sh",
+    "14 - Metasploit/Meterpreter Mastery.html",
+    "14 - Metasploit/metasploit_workspaces_guide.html",
+    "14 - Metasploit/metasploit_vuln_scanners.html",
+    "14 - Metasploit/metasploit_scanner_tools_improved.html",
+    "14 - Metasploit/metasploit_guide.html",
+    "14 - Metasploit/metasploitable_3_threats.html",
+    "14 - Metasploit/metasploitable_2_and_owasp_bwa_threats.html",
+    "14 - Metasploit/Metasploitable3 Threats.html",
+    "14 - Metasploit/Metasploitable2 And Owasp Bwa Threats.html",
+    "14 - Metasploit/Complete Metasploit Workspace Guide Completion.html",
     "00 - Index/Index.md",
+    "01-Reconnaissance/DNSRecon.md",
     "12-Steganography/Steganography Commands Cheat Sheet.md",
     "Windows-Tools/Curl.md",
     "Windows-Tools/Windows-Tools/BloodHound.md",
-    "Windows-Tools/Windows-Tools",
     "Windows-Tools/Windows Lateral Movement and Pivoting.md",
     "Windows-Tools/Responder.md",
     "Windows-Tools/WinPEAS.md",
@@ -196,8 +206,6 @@
     "11-Social-Engineering/Social Engineering.md",
     "11-Social-Engineering/recon-ng.md",
     "11-Social-Engineering/maltego.md",
-    "11-Social-Engineering/creepy.md",
-    "11-Social-Engineering/BeEF.md",
-    "00 - Index"
+    "11-Social-Engineering/creepy.md"
   ]
 }

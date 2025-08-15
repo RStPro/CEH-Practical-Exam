@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Metasploitable2 &amp; OWASP BWA — Known Vulnerabilities & Malicious Artifacts</title>
+  <style>
+    body{font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;background:#f8fafc;color:#0f1724;margin:0;padding:24px}
+    .card{max-width:980px;margin:0 auto;background:white;padding:26px;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.06)}
+    h1{margin-top:0;font-size:24px}
+    h2{font-size:18px;margin-top:18px}
+    p{color:#334155}
+    ul{margin:8px 0 16px 20px}
+    pre{background:#0b1220;color:#e6f0ff;padding:12px;border-radius:8px;overflow:auto}
+    table{width:100%;border-collapse:collapse;margin:12px 0}
+    th,td{border:1px solid #e6eef6;padding:8px;text-align:left}
+    .note{background:#fff7ed;border-left:4px solid #f59e0b;padding:10px;border-radius:6px}
+    .safe{background:#f1f7ff;border-left:4px solid #3b82f6;padding:10px;border-radius:6px}
+    .small{font-size:13px;color:#64748b}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Metasploitable2 &amp; OWASP Broken Web Applications — Threats &amp; Notes</h1>
+    <p class="small">Concise reference for what to expect inside Metasploitable2 and OWASP BWA. Both are intentionally vulnerable and contain web shells, outdated apps, and misconfigurations for training. Keep these VMs isolated.</p>
+
+    <h2>Metasploitable2 — Quick Threat Summary</h2>
+    <p>Metasploitable2 is a classic, intentionally vulnerable Linux VM (by Rapid7) designed for exploitation practice.</p>
+    <h3>Common malicious artifacts & web shells</h3>
+    <ul>
+      <li>PHP webshells: <code>c99.php</code>, <code>r57.php</code> — common in webroot directories.</li>
+      <li>Backdoor scripts and reverse shells located in web folders or tmp directories.</li>
+      <li>Prebuilt exploit binaries and payloads left for detection practice.</li>
+    </ul>
+    <h3>Vulnerable apps & services</h3>
+    <ul>
+      <li>VSFTPD backdoor/backdoor-enabled version (historical)</li>
+      <li>Unpatched Apache 2.x with vulnerable modules</li>
+      <li>Old MySQL, Postgres with weak/no passwords</li>
+      <li>Tomcat with manager app and default creds</li>
+      <li>Unsecured Samba/SMB shares</li>
+      <li>Open services: FTP, Telnet, SSH (weak creds), SNMP, distcc, rpcbind</li>
+    </ul>
+    <h3>Default credentials & examples</h3>
+    <table>
+      <thead><tr><th>Service</th><th>Default / Example Credential</th></tr></thead>
+      <tbody>
+        <tr><td>ssh / os user</td><td><code>msfadmin / msfadmin</code></td></tr>
+        <tr><td>mysql</td><td><code>root / (empty)</code></td></tr>
+        <tr><td>tomcat</td><td><code>tomcat / tomcat</code></td></tr>
+        <tr><td>samba</td><td>guest / writable shares</td></tr>
+      </tbody>
+    </table>
+
+    <h2>OWASP BWA (Broken Web Applications) — Quick Threat Summary</h2>
+    <p>OWASP BWA is a collection of many intentionally insecure web applications useful for learning web vulnerabilities (XSS, SQLi, RCE, file upload, auth bypass, etc.).</p>
+    <h3>Included vulnerable apps (examples)</h3>
+    <ul>
+      <li>DVWA (Damn Vulnerable Web App)</li>
+      <li>Mutillidae</li>
+      <li>WebGoat</li>
+      <li>Old Joomla, Drupal, and WordPress test instances</li>
+      <li>Custom vulnerable scripts demonstrating file upload, RCE, LFI/RFI</li>
+    </ul>
+    <h3>Common malicious artifacts & behaviors</h3>
+    <ul>
+      <li>Uploaded web shells via vulnerable file upload forms (PHP/ASP/JSP shells).</li>
+      <li>Deliberate SQL injection payloads in stored files or sample data.</li>
+      <li>Example exploit chains and scripts present as learning artifacts.</li>
+    </ul>
+
+    <h2>Typical scanner/AV detections you may see</h2>
+    <ul>
+      <li>Webshell signatures (Backdoor:ASP/Dirtelti, Backdoor.PHP, Webshell.JSP)</li>
+      <li>Exploit payloads flagged as Trojans or PUA (potentially unwanted)</li>
+      <li>Old binary libraries/drivers flagged for CVE-based heuristics</li>
+    </ul>
+
+    <h2>Recommended scans & quick checks</h2>
+    <pre># Nmap full TCP scan and service detection
+nmap -sS -p- -sV -oN metasploitable2_services.txt 192.168.56.20
+
+# HTTP directory brute (example)
+ffuf -u http://192.168.56.40/FUZZ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+# Simple grep for webshell patterns on the target (if you have console access)
+grep -R --include="*.php" -n "eval|base64_decode|shell_exec|passthru" /var/www
+</pre>
+
+    <h2>Safety & operational advice</h2>
+    <div class="note">
+      <ul>
+        <li><strong>Isolation:</strong> Always run Metasploitable2 and OWASP BWA on Host-Only or Internal networks.</li>
+        <li><strong>Snapshots:</strong> After a fresh deploy, take a snapshot to easily revert to a clean state.</li>
+        <li><strong>No host shares:</strong> Avoid shared folders or clipboard sharing between host and these VMs.</li>
+        <li><strong>Data exfiltration caution:</strong> Do not upload suspicious files from VMs to cloud or email them.</li>
+      </ul>
+    </div>
+
+    <h2>Want visual threat maps?</h2>
+    <p class="small">I can generate separate visual threat maps for Metasploitable2 and OWASP BWA showing open ports, vulnerable services, common exploit vectors, and likely locations of web shells. Tell me which one you want first and I’ll make it.</p>
+
+    <p class="small" style="margin-top:12px">— End of document</p>
+  </div>
+</body>
+</html>

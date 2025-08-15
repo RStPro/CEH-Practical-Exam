@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Metasploit Workspaces – Pro Walkthrough & Automation</title>
+  <style>
+    :root {
+      --bg: #0f1221; --card:#12162a; --ink:#e7e9ff; --muted:#b6bcff; --brand:#7c9eff; --accent:#ffd166; --ok:#2dd4bf; --warn:#f59e0b; --bad:#ef4444;
+      --code-bg:#0b1022; --code-ink:#d7e0ff; --line:#1e2340;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif}
+    .wrap{max-width:1100px;margin:40px auto;padding:0 20px}
+    header{display:flex;gap:14px;align-items:center}
+    .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--brand),#3f72ff 60%,#9aaeff);display:grid;place-items:center;box-shadow:0 8px 24px rgba(124,158,255,.35)}
+    .logo span{font-weight:800;color:white}
+    h1{font-size:clamp(28px,3.2vw,42px);margin:0}
+    .sub{color:var(--muted)}
+    .card{background:linear-gradient(180deg,var(--card),#0e1330); border:1px solid var(--line); border-radius:20px; padding:22px; box-shadow:0 8px 30px rgba(18,22,42,.45)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#0e1a44;color:var(--brand);border:1px solid #1d2a66;font-weight:600}
+    h2{margin:24px 0 10px;font-size:clamp(22px,2.2vw,28px)}
+    h3{margin:18px 0 8px;font-size:19px}
+    .kbd{padding:.1rem .45rem;border:1px solid #394272;border-radius:6px;background:#0c1334;color:#cfe0ff;font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+    pre{margin:12px 0;background:var(--code-bg);color:var(--code-ink);border:1px solid #1b2144;border-radius:14px;padding:14px;overflow:auto}
+    code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;font-size:.95rem}
+    .row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .btn{appearance:none;border:1px solid #2b3570;background:#17204a;color:#e7e9ff;border-radius:12px;padding:8px 12px;cursor:pointer;font-weight:650}
+    .btn:hover{background:#1a2756}
+    .btn.brand{background:linear-gradient(135deg,#5d7dff,#7c9eff);border-color:#5d7dff;color:#0b1022}
+    .btn.ghost{background:transparent}
+    .notice{border-left:4px solid var(--brand);padding:12px 14px;background:#0e1534;border:1px solid #20295a;border-radius:10px;color:#dfe6ff}
+    details{border:1px solid #22306b;background:#0c1539;border-radius:12px;padding:10px 12px}
+    details summary{cursor:pointer;font-weight:700;color:#dfe3ff}
+    .badge{display:inline-block;background:#0e1a44;border:1px solid #27306a;border-radius:8px;padding:4px 8px;color:#b9c4ff}
+    .footer{opacity:.7;margin:30px 0}
+    .hl{color:var(--accent);font-weight:700}
+    .two{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+    @media (max-width:900px){.two{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo"><span>MSF</span></div>
+      <div>
+        <h1>Metasploit Workspaces — Pro Walkthrough & Automation</h1>
+        <div class="sub">From DB setup to workspace-driven recon, import, and one‑click engagement scripts.</div>
+      </div>
+    </header>
+
+    <section class="card" style="margin-top:22px">
+      <div class="grid">
+        <div>
+          <span class="pill">Prerequisites</span>
+          <ul>
+            <li>Metasploit Framework installed (e.g., Kali)</li>
+            <li>PostgreSQL service available</li>
+            <li>Terminal access (sudo)</li>
+          </ul>
+          <div class="notice"><strong>Tip:</strong> Workspaces require an active DB. Always confirm <code>db_status</code> before scanning.</div>
+        </div>
+        <div>
+          <div class="row"><h3 style="margin:0">Quick DB Setup</h3><button class="btn" onclick="copyBlock('dbsetup')">Copy</button></div>
+          <pre id="dbsetup"><code>sudo systemctl start postgresql
+sudo systemctl enable postgresql
+sudo msfdb init  # or: sudo msfdb start
+msfconsole
+msf6 > db_status   # expect: Connected to msf (postgresql)
+</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="two" style="margin-top:22px">
+      <div class="card">
+        <div class="row"><h2 style="margin:0">Core Workspace Commands</h2><span class="badge">inside msfconsole</span></div>
+        <pre><code>workspace                # list workspaces and show current
+workspace -a corp        # add
+workspace corp           # switch
+workspace -r corp corp2025  # rename
+workspace -d oldspace    # delete
+</code></pre>
+        <div class="notice">Everything you import or discover (hosts, services, loot, vulns) is stored in the <em>current</em> workspace.</div>
+      </div>
+      <div class="card">
+        <h2 style="margin:0 0 10px">Fast Recon inside a Workspace</h2>
+        <pre><code>db_nmap -sV 192.168.1.0/24
+hosts
+services
+</code></pre>
+        <details><summary>Why <code>db_nmap</code>?</summary>
+          <p>It runs Nmap and auto-imports XML into the workspace DB. You can still import external scans via <code>db_import scan.xml</code>.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:22px">
+      <div class="row"><h2 style="margin:0">Automation: Resource Scripts (.rc)</h2>
+        <div>
+          <button class="btn" onclick="downloadRC('autorecon.rc', AUTORECON_RC)">Download AutoRecon</button>
+          <button class="btn" onclick="downloadRC('autofind.rc', AUTOFIND_RC)">Download AutoFind</button>
+        </div>
+      </div>
+
+      <h3>1) Auto Recon — create workspace, scan, enumerate basics</h3>
+      <pre id="autorecon"><code># autorecon.rc
+workspace -a pentest
+workspace pentest
+
+# Quick service detection across a subnet
+setg RHOSTS 192.168.1.0/24
+
+# Saves results straight to DB
+db_nmap -sV 192.168.1.0/24
+hosts
+services
+
+# Lightweight banners / titles
+use auxiliary/scanner/http/http_title
+run
+
+use auxiliary/scanner/ftp/ftp_version
+run
+
+use auxiliary/scanner/ssh/ssh_version
+run
+</code></pre>
+      <div class="row" style="margin:8px 0 22px"><button class="btn" onclick="copyBlock('autorecon')">Copy</button><span class="sub">Run with: <code>msfconsole -r autorecon.rc</code></span></div>
+
+      <h3>2) Auto Find — search exploits matching discovered services</h3>
+      <pre id="autofind"><code># autofind.rc
+# assumes you already scanned/imported into the current workspace
+services
+# filter common stacks (examples)
+services -c name,info | grep -i "apache"
+search type:exploit apache
+
+services -c name,info | grep -i "openssl"
+search type:exploit openssl
+</code></pre>
+      <div class="row" style="margin:8px 0 10px"><button class="btn" onclick="copyBlock('autofind')">Copy</button><span class="sub">Run with: <code>msfconsole -r autofind.rc</code></span></div>
+    </section>
+
+    <section class="card" style="margin-top:22px">
+      <div class="row"><h2 style="margin:0">Import External Scans</h2><button class="btn" onclick="copyBlock('import')">Copy</button></div>
+      <pre id="import"><code># Run Nmap outside MSF and import into a chosen workspace
+nmap -A -T4 -oX scan.xml 192.168.1.0/24
+msfconsole -q -x "workspace -a corp; db_import scan.xml; hosts; services; exit"
+</code></pre>
+      <div class="notice"><strong>Pro tip:</strong> Repeatable imports keep CI-like pipelines clean. Each engagement == its own workspace.</div>
+    </section>
+
+    <section class="card" style="margin-top:22px">
+      <div class="row"><h2 style="margin:0">One‑Click Engagement Starter</h2>
+        <button class="btn brand" onclick="downloadRC('engagement.sh', ENGAGEMENT_SH)">Download Script</button>
+      </div>
+      <p>This shell script ensures PostgreSQL is running, starts Metasploit DB, creates a date‑named workspace, and launches <code>msfconsole</code> ready to go.</p>
+      <pre id="engagement"><code>#!/usr/bin/env bash
+set -euo pipefail
+
+# --- config ---
+SPACE_PREFIX="corp"
+SUBNET="192.168.1.0/24"
+
+# --- services ---
+if command -v systemctl &>/dev/null; then
+  sudo systemctl start postgresql || true
+  sudo systemctl enable postgresql || true
+else
+  sudo service postgresql start || true
+fi
+
+# init metasploit db (idempotent on kali)
+if command -v msfdb &>/dev/null; then
+  sudo msfdb start || sudo msfdb init || true
+fi
+
+# workspace name with date
+TODAY=$(date +%Y-%m-%d)
+SPACE_NAME="${SPACE_PREFIX}-${TODAY}"
+
+# create a temp rc that sets up msf
+TMP_RC=$(mktemp)
+cat > "$TMP_RC" <<'RC'
+workspace
+workspace -a __SPACE__
+workspace __SPACE__
+
+# show db status
+sleep 1
+jobs -K
+setg RHOSTS __SUBNET__
+
+# optional: initial scan (comment if you want manual control)
+db_nmap -sV __SUBNET__
+hosts
+services
+RC
+
+# inject variables\ensed -i "s/__SPACE__/${SPACE_NAME}/g" "$TMP_RC"
+sed -i "s#__SUBNET__#${SUBNET}#g" "$TMP_RC"
+
+# run metasploit
+msfconsole -r "$TMP_RC"
+</code></pre>
+      <div class="row" style="margin-top:10px"><button class="btn" onclick="copyBlock('engagement')">Copy</button><span class="sub">Usage: <code>chmod +x engagement.sh && ./engagement.sh</code></span></div>
+    </section>
+
+    <section class="card" style="margin-top:22px">
+      <h2>Validation & Troubleshooting</h2>
+      <ul>
+        <li>Inside msfconsole, run <code>db_status</code> — expect: <em>Connected to msf (postgresql)</em>.</li>
+        <li>If not connected: <code>sudo msfdb start</code>, then <code>db_connect msf:msf@127.0.0.1/msf</code>.</li>
+        <li>Switch workspaces with <code>workspace &lt;name&gt;</code>, verify isolation with <code>hosts</code>/<code>services</code>.</li>
+      </ul>
+      <details><summary>Optional: ~/.msf4/database.yml</summary>
+        <pre><code>production:
+  adapter: postgresql
+  database: msf
+  username: msf
+  password: msf
+  host: 127.0.0.1
+  port: 5432
+</code></pre>
+      </details>
+    </section>
+
+    <p class="footer">© Metasploit Workspace Playbook — built for fast, clean, repeatable engagements.</p>
+  </div>
+
+  <script>
+    function copyBlock(id){
+      const el = document.getElementById(id);
+      const text = el.innerText;
+      navigator.clipboard.writeText(text).then(()=>{
+        const btns = document.querySelectorAll('.btn');
+        const note = document.createElement('span');
+        note.textContent = '✓ Copied';
+        note.className = 'badge';
+        el.after(note); setTimeout(()=>note.remove(), 1500);
+      });
+    }
+
+    function downloadRC(filename, content){
+      const blob = new Blob([content], {type:'text/plain'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename; a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    const AUTORECON_RC = `workspace -a pentest
+workspace pentest
+setg RHOSTS 192.168.1.0/24
+
+db_nmap -sV 192.168.1.0/24
+hosts
+services
+
+use auxiliary/scanner/http/http_title
+run
+
+use auxiliary/scanner/ftp/ftp_version
+run
+
+use auxiliary/scanner/ssh/ssh_version
+run
+`;
+
+    const AUTOFIND_RC = `services
+services -c name,info | grep -i "apache"
+search type:exploit apache
+
+services -c name,info | grep -i "openssl"
+search type:exploit openssl
+`;
+
+    const ENGAGEMENT_SH = `#!/usr/bin/env bash
+set -euo pipefail
+SPACE_PREFIX="corp"
+SUBNET="192.168.1.0/24"
+
+if command -v systemctl &>/dev/null; then
+  sudo systemctl start postgresql || true
+  sudo systemctl enable postgresql || true
+else
+  sudo service postgresql start || true
+fi
+
+if command -v msfdb &>/dev/null; then
+  sudo msfdb start || sudo msfdb init || true
+fi
+
+TODAY=$(date +%Y-%m-%d)
+SPACE_NAME="${SPACE_PREFIX}-${TODAY}"
+TMP_RC=$(mktemp)
+cat > "$TMP_RC" <<'RC'
+workspace
+workspace -a __SPACE__
+workspace __SPACE__
+
+sleep 1
+jobs -K
+setg RHOSTS __SUBNET__
+
+db_nmap -sV __SUBNET__
+hosts
+services
+RC
+
+sed -i "s/__SPACE__/${SPACE_NAME}/g" "$TMP_RC"
+sed -i "s#__SUBNET__#${SUBNET}#g" "$TMP_RC"
+msfconsole -r "$TMP_RC"
+`;
+  </script>
+</body>
+</html>
