@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "d5c3f1c3f88a4d2f",
+        "id": "3fe111b4d5151368",
         "type": "tabs",
         "children": [
           {
-            "id": "93f33f49858f3fb1",
+            "id": "0f624f2ced51a670",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "00 - Index/Index.md",
+                "file": "03-Enumeration/sqlmap.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Index"
+              "title": "sqlmap"
             }
           }
         ]
@@ -169,8 +169,21 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "93f33f49858f3fb1",
+  "active": "0f624f2ced51a670",
   "lastOpenFiles": [
+    "03-Enumeration/snmpwalk.md",
+    "09-Post-Exploitation/metasploit (notes).md",
+    "09-Post-Exploitation/msfvenom.md",
+    "09-Post-Exploitation/searchsploit.md",
+    "09-Post-Exploitation/netcat.md",
+    "03-Enumeration/telnet.md",
+    "04-System-Hacking/linpeas.md",
+    "CEH-Practical-Cheat sheet.md",
+    "CEH Walkthrough.md",
+    "09-Post-Exploitation/tools.md",
+    "02-Scanning/tools.md",
+    "02-Scanning/nmap.md",
+    "00 - Index/Index.md",
     "14 - Metasploit/scanner vulnerabilities.sh",
     "14 - Metasploit/Meterpreter Mastery.html",
     "14 - Metasploit/metasploit_workspaces_guide.html",
@@ -181,8 +194,6 @@
     "14 - Metasploit/metasploitable_2_and_owasp_bwa_threats.html",
     "14 - Metasploit/Metasploitable3 Threats.html",
     "14 - Metasploit/Metasploitable2 And Owasp Bwa Threats.html",
-    "14 - Metasploit/Complete Metasploit Workspace Guide Completion.html",
-    "00 - Index/Index.md",
     "01-Reconnaissance/DNSRecon.md",
     "12-Steganography/Steganography Commands Cheat Sheet.md",
     "Windows-Tools/Curl.md",
@@ -195,17 +206,6 @@
     "Windows-Tools/PSExec.md",
     "Windows-Tools/PowerShell-Empire.md",
     "Windows-Tools/Mimikatz.md",
-    "Windows-Tools/Impacket.md",
-    "Windows-Tools/Evil-WinRM.md",
-    "Windows-Tools/BloodHound.md",
-    "12-Steganography/steghide.md",
-    "12-Steganography/Stegdetect & Foremost.md",
-    "12-Steganography/README.md",
-    "12-Steganography/OutGuess.md",
-    "11-Social-Engineering/social-engineer toolkit (set).md",
-    "11-Social-Engineering/Social Engineering.md",
-    "11-Social-Engineering/recon-ng.md",
-    "11-Social-Engineering/maltego.md",
-    "11-Social-Engineering/creepy.md"
+    "Windows-Tools/Impacket.md"
   ]
 }

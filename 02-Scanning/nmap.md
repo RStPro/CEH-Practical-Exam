@@ -13,7 +13,7 @@ nmap -sS -sCV -O -A -p- <IP>
 ### Scan without DNS Resolution
 
 ```
-nmap -Pn -n -T4 -sCV <IP>
+nmap -Pn -n -T4 -sCV -O <IP>
 ```
 
 - `-sS`: TCP SYN scan
