@@ -11,14 +11,10 @@
             "id": "29f240e51b3f2d04",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "16 - Walkthroughs/Metasploitable 2/NFS Exploitation on Metasploitable 2.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "NFS Exploitation on Metasploitable 2"
+              "title": "New tab"
             }
           }
         ]
@@ -169,10 +165,24 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "29f240e51b3f2d04",
+  "active": "5c36862084266aa8",
   "lastOpenFiles": [
-    "16 - Walkthroughs/Metasploitable 2/Java RMI on Metasploitable 2.md",
+    "15 - VM's - Walkthroughs/Metasploitable_2/NFS Exploitation on Metasploitable 2.md",
+    "15 - VM's - Walkthroughs/Metasploitable_2/metasploitable_2_enhanced_html_walkthrough.html",
+    "15 - VM's - Walkthroughs/Metasploitable_2/Java RMI on Metasploitable 2.md",
+    "15 - VM's - Walkthroughs/Metasploitable_2/antonio.md",
+    "15 - VM's - Walkthroughs/Metasploitable_2",
+    "15 - VM's - Walkthroughs",
+    "16/Metasploitable 2",
+    "16",
+    "15 - VM's/Metasploitable_2/NFS Exploitation on Metasploitable 2.md",
+    "15 - VM's/Metasploitable_2/Java RMI on Metasploitable 2.md",
+    "15 - VM's/Metasploitable_2/antonio.md",
+    "15 - VM's/Metasploitable_2/metasploitable_2_enhanced_html_walkthrough.html",
+    "15 - VM's/Metasploitable_2",
+    "15 - VM's",
     "16 - Walkthroughs/Metasploitable 2/NFS Exploitation on Metasploitable 2.md",
+    "16 - Walkthroughs/Metasploitable 2/Java RMI on Metasploitable 2.md",
     "16 - Walkthroughs/Metasploitable 2/antonio.md",
     "02-Scanning/nmap.md",
     "Pasted image 20250818191559.png",
@@ -185,10 +195,6 @@
     "CEH Walkthrough.md",
     "16 - Walkthroughs/Metasploitable 2/metasploitable_2_enhanced_html_walkthrough.html",
     "16 - Walkthroughs/Metasploitable 2",
-    "16 - Walkthroughs",
-    "16 - Walkthrough/Metasploitable 2/metasploitable_2_enhanced_html_walkthrough.html",
-    "16 - Walkthrough/Metasploitable 2",
-    "16 - Walkthrough",
     "RST_Pro - Lab Notebook.md",
     "03-Enumeration/sqlmap.md",
     "03-Enumeration/snmpwalk.md",
@@ -202,17 +208,7 @@
     "09-Post-Exploitation/tools.md",
     "02-Scanning/tools.md",
     "00 - Index/Index.md",
-    "14 - Metasploit/scanner vulnerabilities.sh",
-    "14 - Metasploit/Meterpreter Mastery.html",
-    "14 - Metasploit/metasploit_workspaces_guide.html",
-    "14 - Metasploit/metasploit_vuln_scanners.html",
     "01-Reconnaissance/DNSRecon.md",
-    "12-Steganography/Steganography Commands Cheat Sheet.md",
-    "Windows-Tools/Curl.md",
-    "Windows-Tools/Windows-Tools/BloodHound.md",
-    "Windows-Tools/Windows Lateral Movement and Pivoting.md",
-    "Windows-Tools/Responder.md",
-    "Windows-Tools/WinPEAS.md",
-    "Windows-Tools/README..md"
+    "12-Steganography/Steganography Commands Cheat Sheet.md"
   ]
 }
