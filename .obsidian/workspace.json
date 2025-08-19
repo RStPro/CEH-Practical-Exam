@@ -11,10 +11,14 @@
             "id": "29f240e51b3f2d04",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "16 - Walkthroughs/Metasploitable 2/NFS Exploitation on Metasploitable 2.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "NFS Exploitation on Metasploitable 2"
             }
           }
         ]
@@ -165,8 +169,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5c36862084266aa8",
+  "active": "29f240e51b3f2d04",
   "lastOpenFiles": [
+    "16 - Walkthroughs/Metasploitable 2/Java RMI on Metasploitable 2.md",
+    "16 - Walkthroughs/Metasploitable 2/NFS Exploitation on Metasploitable 2.md",
+    "16 - Walkthroughs/Metasploitable 2/antonio.md",
+    "02-Scanning/nmap.md",
     "Pasted image 20250818191559.png",
     "Pasted image 20250818190839.png",
     "Pasted image 20250818190750.png",
@@ -175,8 +183,6 @@
     "Pasted image 20250818184530.png",
     "Pasted image 20250818184316.png",
     "CEH Walkthrough.md",
-    "16 - Walkthroughs/Metasploitable 2/antonio.md",
-    "02-Scanning/nmap.md",
     "16 - Walkthroughs/Metasploitable 2/metasploitable_2_enhanced_html_walkthrough.html",
     "16 - Walkthroughs/Metasploitable 2",
     "16 - Walkthroughs",
@@ -207,7 +213,6 @@
     "Windows-Tools/Windows Lateral Movement and Pivoting.md",
     "Windows-Tools/Responder.md",
     "Windows-Tools/WinPEAS.md",
-    "Windows-Tools/README..md",
-    "Windows-Tools/README.md"
+    "Windows-Tools/README..md"
   ]
 }
