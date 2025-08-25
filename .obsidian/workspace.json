@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "74f86a86c735ba45",
+        "id": "265cd7f67ac73510",
         "type": "tabs",
         "children": [
           {
-            "id": "29f240e51b3f2d04",
+            "id": "2c7a3d418a107798",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "CEH Walkthrough.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "CEH Walkthrough"
             }
           }
         ]
@@ -157,6 +161,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -165,12 +170,30 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5c36862084266aa8",
+  "active": "2c7a3d418a107798",
   "lastOpenFiles": [
+    "CEH-Practical-Cheat sheet.md",
+    "README.md",
+    "RST_Pro - Lab Notebook.md",
+    "99- Assets/Pasted image 20250818191559.png",
+    "99- Assets/Pasted image 20250818184316.png",
+    "15 - VM's - Walkthroughs/Metasploitable_2/antonio.md",
+    "99- Assets",
+    "99- Assets/Pasted image 20250818190839.png",
+    "99- Assets/Pasted image 20250818190750.png",
+    "99- Assets/Pasted image 20250818184701.png",
+    "99- Assets/Pasted image 20250818184616.png",
+    "99- Assets/Pasted image 20250818184530.png",
+    "CEH Walkthrough.md",
+    "CEH.md",
+    "00 - Index/Index.md",
+    "Untitled.base",
+    "13 - CEH-Labs_Man/12 - (CEH) v12 Lab Manual (2023)_split_1995_2094.pdf",
+    "04-System-Hacking/hashcat.md",
+    "16 - Walkthroughs/Metasploitable 2/Java RMI on Metasploitable 2.md",
     "15 - VM's - Walkthroughs/Metasploitable_2/NFS Exploitation on Metasploitable 2.md",
     "15 - VM's - Walkthroughs/Metasploitable_2/metasploitable_2_enhanced_html_walkthrough.html",
     "15 - VM's - Walkthroughs/Metasploitable_2/Java RMI on Metasploitable 2.md",
-    "15 - VM's - Walkthroughs/Metasploitable_2/antonio.md",
     "15 - VM's - Walkthroughs/Metasploitable_2",
     "15 - VM's - Walkthroughs",
     "16/Metasploitable 2",
@@ -180,22 +203,9 @@
     "15 - VM's/Metasploitable_2/antonio.md",
     "15 - VM's/Metasploitable_2/metasploitable_2_enhanced_html_walkthrough.html",
     "15 - VM's/Metasploitable_2",
-    "15 - VM's",
     "16 - Walkthroughs/Metasploitable 2/NFS Exploitation on Metasploitable 2.md",
-    "16 - Walkthroughs/Metasploitable 2/Java RMI on Metasploitable 2.md",
     "16 - Walkthroughs/Metasploitable 2/antonio.md",
     "02-Scanning/nmap.md",
-    "Pasted image 20250818191559.png",
-    "Pasted image 20250818190839.png",
-    "Pasted image 20250818190750.png",
-    "Pasted image 20250818184701.png",
-    "Pasted image 20250818184616.png",
-    "Pasted image 20250818184530.png",
-    "Pasted image 20250818184316.png",
-    "CEH Walkthrough.md",
-    "16 - Walkthroughs/Metasploitable 2/metasploitable_2_enhanced_html_walkthrough.html",
-    "16 - Walkthroughs/Metasploitable 2",
-    "RST_Pro - Lab Notebook.md",
     "03-Enumeration/sqlmap.md",
     "03-Enumeration/snmpwalk.md",
     "09-Post-Exploitation/metasploit (notes).md",
@@ -203,12 +213,6 @@
     "09-Post-Exploitation/searchsploit.md",
     "09-Post-Exploitation/netcat.md",
     "03-Enumeration/telnet.md",
-    "04-System-Hacking/linpeas.md",
-    "CEH-Practical-Cheat sheet.md",
-    "09-Post-Exploitation/tools.md",
-    "02-Scanning/tools.md",
-    "00 - Index/Index.md",
-    "01-Reconnaissance/DNSRecon.md",
-    "12-Steganography/Steganography Commands Cheat Sheet.md"
+    "04-System-Hacking/linpeas.md"
   ]
 }
