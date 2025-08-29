@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CEH Walkthrough.md",
+                "file": "15 - VM's - Walkthroughs/Metasploitable_3/Wordpress.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CEH Walkthrough"
+              "title": "Wordpress"
             }
           }
         ]
@@ -170,8 +170,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "2c7a3d418a107798",
+  "active": "5c36862084266aa8",
   "lastOpenFiles": [
+    "14 - Metasploit/Post-Exploitation & Privilege Escalation Guide.html",
+    "14 - Metasploit/Metasploit Exploits for Common Ports Guide.html",
+    "CEH Walkthrough.md",
     "CEH-Practical-Cheat sheet.md",
     "README.md",
     "RST_Pro - Lab Notebook.md",
@@ -184,7 +187,6 @@
     "99- Assets/Pasted image 20250818184701.png",
     "99- Assets/Pasted image 20250818184616.png",
     "99- Assets/Pasted image 20250818184530.png",
-    "CEH Walkthrough.md",
     "CEH.md",
     "00 - Index/Index.md",
     "Untitled.base",
@@ -202,7 +204,6 @@
     "15 - VM's/Metasploitable_2/Java RMI on Metasploitable 2.md",
     "15 - VM's/Metasploitable_2/antonio.md",
     "15 - VM's/Metasploitable_2/metasploitable_2_enhanced_html_walkthrough.html",
-    "15 - VM's/Metasploitable_2",
     "16 - Walkthroughs/Metasploitable 2/NFS Exploitation on Metasploitable 2.md",
     "16 - Walkthroughs/Metasploitable 2/antonio.md",
     "02-Scanning/nmap.md",
