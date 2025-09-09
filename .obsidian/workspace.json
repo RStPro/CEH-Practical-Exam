@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "14 - Metasploit/Metasploit.md",
+                "file": "16 - WordPress/Main WordPress directories identified.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Metasploit"
+              "title": "Main WordPress directories identified"
             }
           }
         ]
@@ -172,11 +172,14 @@
   },
   "active": "2c7a3d418a107798",
   "lastOpenFiles": [
+    "15 - VM's - Walkthroughs/Metasploitable_3/Wordpress.md",
+    "16 - WordPress/Main WordPress directories identified.md",
+    "16 - WordPress",
+    "15 - VM's - Walkthroughs/Untitled",
+    "14 - Metasploit/Metasploit.md",
     "05-Web-Application-Hacking/burp.md",
     "14 - Metasploit/Metasploit Toolkit – Detection → Exploitation Map (OS‑Separated).md",
-    "14 - Metasploit/Metasploit.md",
     "03-Enumeration/gobuster.md",
-    "15 - VM's - Walkthroughs/Metasploitable_3/Wordpress.md",
     "14 - Metasploit/Post-Exploitation & Privilege Escalation Guide.html",
     "14 - Metasploit/Metasploit Exploits for Common Ports Guide.html",
     "CEH Walkthrough.md",
@@ -203,8 +206,6 @@
     "15 - VM's - Walkthroughs/Metasploitable_2/Java RMI on Metasploitable 2.md",
     "15 - VM's - Walkthroughs/Metasploitable_2",
     "15 - VM's - Walkthroughs",
-    "16/Metasploitable 2",
-    "16",
     "15 - VM's/Metasploitable_2/NFS Exploitation on Metasploitable 2.md",
     "15 - VM's/Metasploitable_2/Java RMI on Metasploitable 2.md",
     "15 - VM's/Metasploitable_2/antonio.md",
@@ -213,7 +214,6 @@
     "02-Scanning/nmap.md",
     "03-Enumeration/sqlmap.md",
     "03-Enumeration/snmpwalk.md",
-    "09-Post-Exploitation/metasploit (notes).md",
-    "09-Post-Exploitation/msfvenom.md"
+    "09-Post-Exploitation/metasploit (notes).md"
   ]
 }
