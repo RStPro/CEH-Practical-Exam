@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "16 - WordPress/Main WordPress directories identified.md",
+                "file": "00 - Index/Index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Main WordPress directories identified"
+              "title": "Index"
             }
           }
         ]
@@ -172,13 +172,13 @@
   },
   "active": "2c7a3d418a107798",
   "lastOpenFiles": [
-    "15 - VM's - Walkthroughs/Metasploitable_3/Wordpress.md",
+    "14 - Metasploit/Metasploit Toolkit – Detection → Exploitation Map (OS‑Separated).md",
     "16 - WordPress/Main WordPress directories identified.md",
+    "15 - VM's - Walkthroughs/Metasploitable_3/Wordpress.md",
     "16 - WordPress",
     "15 - VM's - Walkthroughs/Untitled",
     "14 - Metasploit/Metasploit.md",
     "05-Web-Application-Hacking/burp.md",
-    "14 - Metasploit/Metasploit Toolkit – Detection → Exploitation Map (OS‑Separated).md",
     "03-Enumeration/gobuster.md",
     "14 - Metasploit/Post-Exploitation & Privilege Escalation Guide.html",
     "14 - Metasploit/Metasploit Exploits for Common Ports Guide.html",
