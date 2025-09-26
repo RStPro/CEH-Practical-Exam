@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02-Scanning/nmap.md",
+                "file": "14 - Metasploit/3 - Metasploit_vuln_guide.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "nmap"
+              "title": "3 - Metasploit_vuln_guide"
             }
           }
         ]
@@ -172,6 +172,9 @@
   },
   "active": "2c7a3d418a107798",
   "lastOpenFiles": [
+    "02-Scanning/nmap.md",
+    "14 - Metasploit/3 - Metasploit_vuln_guide.md",
+    "14 - Metasploit/Metasploit_vuln_guide.md",
     "02-Scanning/Nikto.md",
     "01-Reconnaissance/tools.md",
     "01-Reconnaissance/theHarvester.md",
@@ -205,9 +208,6 @@
     "14 - Metasploit/Other Files/metasploit_guide.html",
     "14 - Metasploit/Other Ports/Bind Shell_1524.md",
     "14 - Metasploit/Other Ports/Java RMI_1099, 1617, 8686.md",
-    "14 - Metasploit/Other Ports/PostgreSQL_5432.md",
-    "14 - Metasploit/Other Ports/UnrealIRCd_6667.md",
-    "14 - Metasploit/Other Ports/VNC_5900.md",
     "99- Assets/Pasted image 20250818191559.png",
     "99- Assets/Pasted image 20250818184316.png",
     "99- Assets/Pasted image 20250818190839.png",
