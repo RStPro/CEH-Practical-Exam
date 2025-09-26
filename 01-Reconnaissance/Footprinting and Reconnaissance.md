@@ -43,14 +43,31 @@
 git clone https://github.com/lanmaster53/recon-ng.git
 cd recon-ng
 ./recon-ng
+```
 
-# Inside recon-ng console
-> marketplace install all
-> workspaces create example
-> add domains example.com
-> modules load recon/domains-hosts/bing_domain_web
-> run
-> show hosts
+### Inside recon-ng console
+```bash
+marketplace install all
+```
+
+```
+workspaces create example
+```
+
+```
+add domains example.com
+```
+
+```
+modules load recon/domains-hosts/bing_domain_web
+```
+
+```
+run
+```
+
+```
+show hosts
 ```
 
 ---
@@ -58,7 +75,7 @@ cd recon-ng
 ## 🧑‍💻 Nmap Recon Script
 
 ```bash
-nmap -sS -sV -O -A -T4 -p- example.com -oN fullscan.txt
+nmap -sS -sV -O -A -n -T4 -p- example.com -oN fullscan.txt
 ```
 
 Options explained:
@@ -67,6 +84,7 @@ Options explained:
 - `-sV`: Version detection
 - `-O`: OS detection
 - `-A`: Aggressive scan
+-  -n : Skip DNS resolution
 - `-p-`: Scan all 65535 ports
 - `-T4`: Faster execution
 - `-oN`: Output to file

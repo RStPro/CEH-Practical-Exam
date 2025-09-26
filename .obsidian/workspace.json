@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "06-Wireless-Security/Wireshark.md",
+                "file": "01-Reconnaissance/Footprinting and Reconnaissance.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Wireshark"
+              "title": "Footprinting and Reconnaissance"
             }
           }
         ]
@@ -172,8 +172,9 @@
   },
   "active": "2c7a3d418a107798",
   "lastOpenFiles": [
-    "00 - Index/Index.md",
     "01-Reconnaissance/DNSRecon.md",
+    "06-Wireless-Security/Wireshark.md",
+    "00 - Index/Index.md",
     "12-Steganography/4 Binwalk.md",
     "12-Steganography/0 Steganography Commands Cheat Sheet.md",
     "12-Steganography/3 Stegdetect & Foremost.md",
@@ -207,7 +208,6 @@
     "14 - Metasploit/Other Ports/mysql_3306.md",
     "14 - Metasploit/Other Ports/nfs_2049.md",
     "14 - Metasploit/Other Ports/nfs_2049_complete.md",
-    "14 - Metasploit/Other Ports/rservices_512_513_514.md",
     "99- Assets/Pasted image 20250818191559.png",
     "99- Assets/Pasted image 20250818184316.png",
     "99- Assets/Pasted image 20250818190839.png",
