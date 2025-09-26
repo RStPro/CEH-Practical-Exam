@@ -24,6 +24,12 @@ This repository contains comprehensive notes, tools, and practical resources cov
 
 Each folder contains markdown files with notes, commands, and explanations for the respective topic. Use this repository as a study guide and practical reference during your CEH preparations.
 
+## Other links
+
+Lab Notebook - https://github.com/RStPro/Pentest-Lab-Notebook/tree/master/Notes
+
+Antonio - https://github.com/YumiKioko/CEH-Practical-Exam
+
 ## Contributing
 
 Feel free to open issues or pull requests to improve or update the content.
