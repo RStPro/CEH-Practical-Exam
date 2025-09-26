@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "04-System-Hacking/linpeas.md",
+                "file": "14 - Metasploit/1 - Metasploit Toolkit – Detection → Exploitation Map (OS‑Separated).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "linpeas"
+              "title": "1 - Metasploit Toolkit – Detection → Exploitation Map (OS‑Separated)"
             }
           }
         ]
@@ -172,6 +172,8 @@
   },
   "active": "2c7a3d418a107798",
   "lastOpenFiles": [
+    "14 - Metasploit/0 - Metasploit.md",
+    "04-System-Hacking/linpeas.md",
     "00 - Index/Index.md",
     "CEH Walkthrough.md",
     "12-Steganography/Binwalk.md",
@@ -180,12 +182,11 @@
     "12-Steganography/Stegdetect & Foremost.md",
     "12-Steganography/README.md",
     "12-Steganography/OutGuess.md",
-    "14 - Metasploit/Metasploit Toolkit – Detection → Exploitation Map (OS‑Separated).md",
+    "14 - Metasploit/1 - Metasploit Toolkit – Detection → Exploitation Map (OS‑Separated).md",
     "16 - WordPress/Main WordPress directories identified.md",
     "15 - VM's - Walkthroughs/Metasploitable_3/Wordpress.md",
     "16 - WordPress",
     "15 - VM's - Walkthroughs/Untitled",
-    "14 - Metasploit/Metasploit.md",
     "05-Web-Application-Hacking/burp.md",
     "03-Enumeration/gobuster.md",
     "14 - Metasploit/Post-Exploitation & Privilege Escalation Guide.html",
@@ -213,7 +214,6 @@
     "15 - VM's - Walkthroughs/Metasploitable_2",
     "15 - VM's - Walkthroughs",
     "15 - VM's/Metasploitable_2/NFS Exploitation on Metasploitable 2.md",
-    "15 - VM's/Metasploitable_2/Java RMI on Metasploitable 2.md",
-    "15 - VM's/Metasploitable_2/antonio.md"
+    "15 - VM's/Metasploitable_2/Java RMI on Metasploitable 2.md"
   ]
 }
