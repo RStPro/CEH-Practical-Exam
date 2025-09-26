@@ -109,7 +109,7 @@
 - [WinPEAS](/Windows-Tools/Windows-Tools/WinPEAS.md)
 
 ## CEH Walkthrough
-- [CEH Walkthrough](/CEH%20Walkthrough.md)
+- [1 - CEH Walkthrough](1%20-%20CEH%20Walkthrough.md)
 
 ## CEH-Practical-Cheat sheet
-- [CEH-Practical-Cheat sheet](/CEH-Practical-Cheat%20sheet.md)
+- [2 - CEH-Practical-Cheat sheet](2%20-%20CEH-Practical-Cheat%20sheet.md)

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CEH Walkthrough.md",
+                "file": "2 - CEH-Practical-Cheat sheet.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CEH Walkthrough"
+              "title": "2 - CEH-Practical-Cheat sheet"
             }
           }
         ]
@@ -172,10 +172,10 @@
   },
   "active": "2c7a3d418a107798",
   "lastOpenFiles": [
+    "1 - CEH Walkthrough.md",
     "RST_Pro - Lab Notebook.md",
     "README.md",
-    "CEH-Practical-Cheat sheet.md",
-    "CEH Walkthrough.md",
+    "2 - CEH-Practical-Cheat sheet.md",
     "00 - Index/Index.md",
     "14 - Metasploit/0 - Metasploit.md",
     "14 - Metasploit/Other Files/Post-Exploitation & Privilege Escalation Guide.html",
