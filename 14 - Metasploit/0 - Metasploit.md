@@ -14,18 +14,170 @@ service postgresql restart
 db_status
 ```
 
+## Create Workspace
+
+1. **Create (add) a workspace**
+
+```bash
+workspace -a my_workspace
+```
+
+This creates the workspace and makes it the current one.
+
+2. **List workspaces**
+
+```bash
+workspace -l
+```
+
+The current workspace will be indicated in the list.
+
+3. **Switch to an existing workspace**
+
+```bash
+workspace -s my_workspace
+```
+
+(Some older docs accept `workspace my_workspace` to switch.)
+
+4. **Remove a workspace**
+
+```bash
+workspace -d my_workspace
+```
+
+---
+
 Here, we are scanning the whole subnet 10.10.1.0/24 for active hosts.
 
 ```
-nmap -Pn -sS -A -oX Test 10.10.1.0/24  
-  
-db_import Test
+db_nmap -Pn -sS -n -sV -O -p- -T4 -v3 10.10.1.0/24  
 ```
 
 Type **hosts** and hit Enter to view the list of active hosts along with their MAC addresses, OS names, etc.
 Type **services** or **db_services** and hit Enter to receive a list of the services running on the active hosts.
 
-# **High-Value Target Ports & Metasploit #metasploit  Modules**
+
+## Metasploit — View Hosts & Services (after `db_nmap`)
+
+Compact reference: how to verify and explore results imported by `db_nmap` inside `msfconsole`.
+
+## 1) List discovered hosts
+
+```bash
+msf6 > hosts
+```
+
+Typical columns: `address`, `mac`, `name`, `os_name`, `info`, `purpose`.
+
+---
+
+## 2) List discovered services
+
+```bash
+msf6 > services
+```
+
+Typical columns: `host`, `port`, `proto`, `name`, `state`, `info` (banner/version).
+
+---
+
+## 3) Common service filters
+
+- By port:
+    
+
+```bash
+msf6 > services -p 80
+```
+
+- By host:
+    
+
+```bash
+msf6 > services -h 10.10.10.5
+```
+
+- Or use shell filtering if your `services` doesn't support flags:
+    
+
+```bash
+msf6 > services | grep tcp
+```
+
+---
+
+## 4) Related DB views
+
+```bash
+msf6 > vulns    # imported vulnerability info
+msf6 > notes    # Nmap script output / manual notes
+msf6 > creds    # discovered credentials
+```
+
+---
+
+## 5) Workspaces
+
+Make sure you are in the correct workspace — `hosts`/`services` are scoped per workspace.
+
+```bash
+msf6 > workspace -l
+msf6 > workspace -s lab1
+```
+
+---
+
+## 8) Exporting / Automation
+
+- Export DB:
+    
+
+```bash
+msf6 > db_export /tmp/msf_export.xml
+```
+
+- Use RC scripts to run scans and then show results:
+    
+
+```bash
+# followup.rc
+workspace -s lab1
+db_nmap -sV 10.10.10.0/24
+hosts
+services
+```
+
+Run with:
+
+```bash
+msfconsole -r followup.rc
+```
+
+---
+
+## Troubleshooting
+
+- If `db_nmap` ran but `hosts`/`services` are empty: check `db_status` — the DB may have been disconnected at scan time.
+    
+- To import richer Nmap output manually:
+    
+
+```bash
+nmap -sV --script=vuln -oX /tmp/scan.xml target
+msf6 > db_import /tmp/scan.xml
+```
+
+---
+
+## Common pitfalls & tips
+
+- If `db_status` shows **not connected**, workspace data won’t persist. Fix the DB first with `msfdb init` or by starting PostgreSQL.
+    
+- Workspaces are **database-backed**: they separate hosts/services/creds/vulns per project — ideal for one engagement or lab per workspace.
+    
+- Prefer `db_import` of scanner XMLs (Nmap, etc.) rather than adding hosts manually for faster population
+## High-Value Target Ports & Metasploit #metasploit  Modules
 
 **Author:** Metasploit Helper
 
