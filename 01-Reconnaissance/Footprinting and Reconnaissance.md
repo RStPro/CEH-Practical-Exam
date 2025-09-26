@@ -114,14 +114,19 @@ amass enum -passive -d example.com -o subdomains.txt
 
 ## 🧑‍💻 Google Dork Examples
 
+### Find public PDFs
 ```bash
-# Find public PDFs
 site:example.com filetype:pdf
+```
 
-# Discover admin panels
+### Discover admin panels
+```
 intitle:"admin login" site:example.com
+```
 
-# Look for sensitive directories
+### Look for sensitive directories
+
+```
 inurl:wp-content/uploads site:example.com
 ```
 
