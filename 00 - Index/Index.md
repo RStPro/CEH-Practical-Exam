@@ -97,10 +97,10 @@
 ## 14-Metasploit
 
 ## Windows-Tools
-- [BloodHound](17%20-%20Windows-Tools/BloodHound.md)
+- [BloodHound](Windows-Tools/BloodHound.md)
 - [Curl](Curl.md)
 - [Evil-WinRM](Evil-WinRM.md)
-- [Impacket](17%20-%20Windows-Tools/Impacket.md)
+- [Impacket](Windows-Tools/Impacket.md)
 - [Mimikatz](Mimikatz.md)
 - [PowerShell-Empire](PowerShell-Empire.md)
 - [PSExec](PSExec.md)
