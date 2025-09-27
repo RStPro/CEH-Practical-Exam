@@ -106,7 +106,7 @@
 - [PSExec](/Windows-Tools/PSExec.md)
 - [Responder](/Windows-Tools/Responder.md)
 - [Windows Lateral Movement and Pivoting](/Windows-Tools/Windows%20Lateral%20Movement%20and%20Pivoting.md)
-- [WinPEAS](Windows-Tools/WinPEAS.md)
+- [WinPEAS](/Windows-Tools/WinPEAS.md)
 
 ## CEH Walkthrough
 - [1 - CEH Walkthrough](1%20-%20CEH%20Walkthrough.md)
