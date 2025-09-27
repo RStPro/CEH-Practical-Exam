@@ -87,10 +87,10 @@
 - [social-engineer toolkit (set)](/11-Social-Engineering/social-engineer%20toolkit%20(set).md): Framework for automating social engineering attacks and payload delivery.
 
 ## 12-Steganography
-- [0 Steganography Commands Cheat Sheet](0%20Steganography%20Commands%20Cheat%20Sheet.md): Quick reference for common stego tools and command usage.
-- [1 steghide](1%20steghide.md): Tool for embedding and extracting data within image and audio files.
-- [2 OutGuess](2%20OutGuess.md): Steganography tool for embedding hidden data in image files.
-- [3 Stegdetect & Foremost](3%20Stegdetect%20&%20Foremost.md): Tools for detecting steganography in images and recovering hidden or deleted files.
+- [0 Steganography Commands Cheat Sheet](/12-Steganography/0%20Steganography%20Commands%20Cheat%20Sheet.md): Quick reference for common stego tools and command usage.
+- [1 steghide](/12-Steganography/1%20steghide.md): Tool for embedding and extracting data within image and audio files.
+- [2 OutGuess](/12-Steganography/2%20OutGuess.md): Steganography tool for embedding hidden data in image files.
+- [3 Stegdetect & Foremost](/12-Steganography/3%20Stegdetect%20&%20Foremost.md): Tools for detecting steganography in images and recovering hidden or deleted files.
 
 ## 13-CEH-Labs_Man
 
