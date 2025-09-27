@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "14 - Metasploit/0 - Metasploit.md",
+                "file": "Windows-Tools/CEH Practical - Windows Command Cheat Sheet.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "0 - Metasploit"
+              "title": "CEH Practical - Windows Command Cheat Sheet"
             }
           }
         ]
@@ -172,6 +172,8 @@
   },
   "active": "2609c861d8b731a7",
   "lastOpenFiles": [
+    "14 - Metasploit/0 - Metasploit.md",
+    "Windows-Tools/CEH Practical - Windows Command Cheat Sheet.md",
     "00 - Index/Index.md",
     "12-Steganography/0 Steganography Commands Cheat Sheet.md",
     "Steganography/Commands Cheat Sheet.md",
@@ -197,8 +199,6 @@
     "12-Steganography/tools.md",
     "2 - CEH-Practical-Cheat sheet.md",
     "1 - CEH Walkthrough.md",
-    "RST_Pro - Lab Notebook.md",
-    "README.md",
     "14 - Metasploit/Other Files/Post-Exploitation & Privilege Escalation Guide.html",
     "14 - Metasploit/Other Files/Meterpreter Mastery.html",
     "14 - Metasploit/Other Files/Metasploitable3 Threats.html",
