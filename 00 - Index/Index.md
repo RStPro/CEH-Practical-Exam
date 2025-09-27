@@ -90,22 +90,22 @@
 - [0 Steganography Commands Cheat Sheet](0%20Steganography%20Commands%20Cheat%20Sheet.md): Quick reference for common stego tools and command usage.
 - [1 steghide](1%20steghide.md): Tool for embedding and extracting data within image and audio files.
 - [2 OutGuess](2%20OutGuess.md): Steganography tool for embedding hidden data in image files.
-- - [3 Stegdetect & Foremost](3%20Stegdetect%20&%20Foremost.md): Tools for detecting steganography in images and recovering hidden or deleted files.
+- [3 Stegdetect & Foremost](3%20Stegdetect%20&%20Foremost.md): Tools for detecting steganography in images and recovering hidden or deleted files.
 
 ## 13-CEH-Labs_Man
 
 ## 14-Metasploit
 
 ## Windows-Tools
-- [BloodHound](Windows-Tools/BloodHound.md)
-- [Curl](Curl.md)
-- [Evil-WinRM](Evil-WinRM.md)
+- [BloodHound](/Windows-Tools/BloodHound.md)
+- [Curl](/Windows-Tools/Curl.md)
+- [Evil-WinRM](/Windows-Tools/Evil-WinRM.md)
 - [Impacket](Windows-Tools/Impacket.md)
-- [Mimikatz](Mimikatz.md)
-- [PowerShell-Empire](PowerShell-Empire.md)
-- [PSExec](PSExec.md)
-- [Responder](Responder.md)
-- [Windows Lateral Movement and Pivoting](Windows%20Lateral%20Movement%20and%20Pivoting.md)
+- [Mimikatz](/Windows-Tools/Mimikatz.md)
+- [PowerShell-Empire](/Windows-Tools/PowerShell-Empire.md)
+- [PSExec](/Windows-Tools/PSExec.md)
+- [Responder](/Windows-Tools/Responder.md)
+- [Windows Lateral Movement and Pivoting](/Windows-Tools/Windows%20Lateral%20Movement%20and%20Pivoting.md)
 - [WinPEAS](/Windows-Tools/Windows-Tools/WinPEAS.md)
 
 ## CEH Walkthrough

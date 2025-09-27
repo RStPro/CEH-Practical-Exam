@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "265cd7f67ac73510",
+        "id": "ad3cd3d280175023",
         "type": "tabs",
         "children": [
           {
-            "id": "2c7a3d418a107798",
+            "id": "2609c861d8b731a7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Windows-Tools/BloodHound.md",
+                "file": "00 - Index/Index.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "BloodHound"
+              "title": "Index"
             }
           }
         ]
@@ -170,14 +170,18 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "2c7a3d418a107798",
+  "active": "2609c861d8b731a7",
   "lastOpenFiles": [
+    "12-Steganography/0 Steganography Commands Cheat Sheet.md",
+    "Steganography/Commands Cheat Sheet.md",
     "00 - Index/Index.md",
+    "Steganography",
+    "02-Scanning/Nikto.md",
+    "Windows-Tools/BloodHound.md",
     "Windows-Tools/Windows-Tools/BloodHound.md",
     "14 - Metasploit/3 - Metasploit_vuln_guide.md",
     "02-Scanning/nmap.md",
     "14 - Metasploit/Metasploit_vuln_guide.md",
-    "02-Scanning/Nikto.md",
     "01-Reconnaissance/tools.md",
     "01-Reconnaissance/theHarvester.md",
     "01-Reconnaissance/sublist3r.md",
@@ -186,7 +190,6 @@
     "01-Reconnaissance/DNSRecon.md",
     "06-Wireless-Security/Wireshark.md",
     "12-Steganography/4 Binwalk.md",
-    "12-Steganography/0 Steganography Commands Cheat Sheet.md",
     "12-Steganography/3 Stegdetect & Foremost.md",
     "12-Steganography/2 OutGuess.md",
     "12-Steganography/1 steghide.md",
@@ -196,7 +199,6 @@
     "1 - CEH Walkthrough.md",
     "RST_Pro - Lab Notebook.md",
     "README.md",
-    "14 - Metasploit/0 - Metasploit.md",
     "14 - Metasploit/Other Files/Post-Exploitation & Privilege Escalation Guide.html",
     "14 - Metasploit/Other Files/Meterpreter Mastery.html",
     "14 - Metasploit/Other Files/Metasploitable3 Threats.html",
@@ -206,8 +208,6 @@
     "14 - Metasploit/Other Files/metasploit_workspaces_guide.html",
     "14 - Metasploit/Other Files/metasploit_vuln_scanners.html",
     "14 - Metasploit/Other Files/metasploit_scanner_tools_improved.html",
-    "14 - Metasploit/Other Files/metasploit_guide.html",
-    "14 - Metasploit/Other Ports/Bind Shell_1524.md",
     "99- Assets/Pasted image 20250818191559.png",
     "99- Assets/Pasted image 20250818184316.png",
     "99- Assets/Pasted image 20250818190839.png",
