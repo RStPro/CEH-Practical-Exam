@@ -153,15 +153,91 @@ Run with:
 ```bash
 msfconsole -r followup.rc
 ```
+___
+## Metasploit — Available Payloads for an Exploit
+
+A short, practical cheat-sheet for finding payloads compatible with a chosen Metasploit exploit.
+### 1) Select the exploit
+
+```bash
+msf6 > use exploit/<path/to/exploit>
+# e.g.
+msf6 > use exploit/windows/smb/ms17_010_eternalblue
+```
+
+### 2) List payloads compatible with the selected exploit
+
+```bash
+msf6 (exploit) > show payloads
+```
+
+This command lists payloads Metasploit considers compatible with the currently selected exploit (Name, Description, Rank).
+
+### 3) Quick filtering
+
+```bash
+msf6 (exploit) > show payloads | grep -i meterpreter
+msf6 (exploit) > show payloads | grep -i windows
+```
+
+Use `grep` to narrow results fast (platform, type, meterpreter, etc.).
+
+### 4) Read full exploit info (compatibility notes)
+
+```bash
+msf6 > info
+# or explicitly:
+msf6 > info exploit/<path/to/exploit>
+```
+
+`info` prints details — check _Compatible Payloads_, architecture, staging, and required options.
+
+### 5) Inspect a specific payload
+
+```bash
+msf6 (exploit) > info payload/<payload_name>
+# e.g.
+msf6 > info payload/windows/meterpreter/reverse_tcp
+```
+
+Shows payload options, description, supported architectures, and staging behavior.
+
+### 6) Set payload and verify options
+
+```bash
+msf6 (exploit) > set payload windows/meterpreter/reverse_tcp
+msf6 (exploit) > show options
+```
+
+`show options` reveals both exploit and payload required settings (e.g., LHOST, LPORT).
+
+### 7) Alternative: browse with msfvenom outside msfconsole
+
+```bash
+$ msfvenom -l payloads | grep -i windows
+```
+
+Useful to search all payloads before choosing a module.
 
 ---
+## Tips & Gotchas
 
+- `show payloads` after `use` is the fastest, most reliable method to view compatible payloads.
+- Always match payload **platform** and **architecture** (x86/x64).
+- Check staged vs stageless payload compatibility — some exploits require staged payloads.
+- After `set payload`, always `show options` to confirm required variables (LHOST/LPORT, etc.).
+- If a payload is not listed but you expect it to work, compare `info exploit` and `info payload` to find mismatches (staging, encoders, arch).
+- Automate dumps with:
+
+```bash
+msfconsole -x "use exploit/...; show payloads; exit"
+```
+
+---
 ## Troubleshooting
 
-- If `db_nmap` ran but `hosts`/`services` are empty: check `db_status` — the DB may have been disconnected at scan time.
-    
+- If `db_nmap` ran but `hosts`/`services` are empty: check `db_status` — the DB may have been disconnected at scan time.    
 - To import richer Nmap output manually:
-    
 
 ```bash
 nmap -sV --script=vuln -oX /tmp/scan.xml target
@@ -172,21 +248,16 @@ msf6 > db_import /tmp/scan.xml
 
 ## Common pitfalls & tips
 
-- If `db_status` shows **not connected**, workspace data won’t persist. Fix the DB first with `msfdb init` or by starting PostgreSQL.
-    
+- If `db_status` shows **not connected**, workspace data won’t persist. Fix the DB first with `msfdb init` or by starting PostgreSQL.    
 - Workspaces are **database-backed**: they separate hosts/services/creds/vulns per project — ideal for one engagement or lab per workspace.
-    
 - Prefer `db_import` of scanner XMLs (Nmap, etc.) rather than adding hosts manually for faster population
 ## High-Value Target Ports & Metasploit #metasploit  Modules
-
-**Author:** Metasploit Helper
 
 **Description:** A curated list of common ports running high-value services, along with reconnaissance, brute-force, and exploit modules for Metasploit. Always use scanners first to identify the exact service and version.
 
 **Disclaimer:** For authorized security testing and educational purposes only.
 
 ---
-
 ## Port 21 - FTP (File Transfer Protocol)
 
 **Common Service:** FTP Server (e.g., vsftpd, ProFTPD)
@@ -207,7 +278,6 @@ use exploit/unix/ftp/vsftpd_234_backdoor
 
 Purpose: Exploits a backdoor in vsftpd version 2.3.4.
 ___
-
 ## Port 22 - SSH (Secure Shell)
 
 **Use this Script before anything to see if the port has vulnerabilities**
@@ -234,7 +304,6 @@ use auxiliary/scanner/ssh/ssh_enumusers
 
    Purpose: Enumerates valid system usernames on older OpenSSH versions.
 ___
-
 ## Port 23 - Telnet
 
 **Common Service:** Telnet Server
@@ -255,7 +324,6 @@ use exploit/linux/telnet/telnet_encrypt_keyid
 
  Purpose: Exploits a vulnerability in the encryption option handling.
 ___
-
 ## Port 25 / 465 / 587 - SMTP
 
 **Common Service:** Mail Server (Postfix, Sendmail, Exim)
@@ -276,7 +344,6 @@ use exploit/linux/smtp/exim4_deliver_message_priv_esc
 
 Purpose: Privilege escalation in specific Exim versions.
 ___
-
 ## Port 53 - DNS
 
 **Common Service:** DNS Server (BIND)
@@ -297,7 +364,6 @@ use auxiliary/gather/dns_axfr
 
 Purpose: Attempts a zone transfer to dump all DNS records.
 ___
-
 ## Port 80 / 443 / 8080 - HTTP/HTTPS
 
 **Common Service:** Web Servers (Apache, Nginx, IIS) & Web Apps
@@ -318,7 +384,6 @@ use exploit/multi/http/tomcat_mgr_upload
 
 Purpose: Uploads a malicious WAR file if manager app credentials are known.
 ___
-
 ## Port 110 / 995 - POP3
 
 **Common Service:** Mail Retrieval Server
@@ -339,7 +404,6 @@ use auxiliary/scanner/pop3/pop3_version
 
 Purpose: Discovers POP3 server software and version.
 ___
-
 ## Port 139 / 445 - SMB
 
 **Common Service:** Windows File & Print Sharing
@@ -364,7 +428,6 @@ use exploit/windows/smb/ms17_010_eternalblue
 
 Purpose: Exploits a critical vulnerability in SMBv1 (MS17-010).
 ___
-
 ## Port 143 / 993 - IMAP
 
 **Common Service:** Mail Retrieval Server
@@ -385,7 +448,6 @@ use auxiliary/scanner/imap/imap_version
 
 Purpose: Discovers IMAP server software and version.
 ___
-
 ## Port 1433 / 1434 - MSSQL
 
 **Common Service:** Microsoft SQL Server
@@ -406,7 +468,6 @@ use exploit/windows/mssql/mssql_payload
 
 Purpose: Executes a payload on the server via `xp_cmdshell`.
 ___
-
 ## Port 1521 - Oracle TNS
 
 **Common Service:** Oracle Database
@@ -431,7 +492,6 @@ use auxiliary/sniffer/oracle
 
 Purpose: Sniffs and cracks authentication hashes (requires MITM position).
 ___
-
 ## Port 27017 / 27018 - MongoDB
 
 **Common Service:** MongoDB NoSQL Database
@@ -452,7 +512,6 @@ use auxiliary/scanner/mongodb/mongodb_login
 
 Purpose: Bruteforces credentials if authentication is enabled.
 ___
-
 ## Port 3389 - RDP
 
 **Common Service:** Remote Desktop Protocol
@@ -473,7 +532,6 @@ use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
 
 Purpose: Checks for the critical BlueKeep vulnerability (CVE-2019-0708).
 ___
-
 ## Port 4848 - Oracle GlassFish
 
 **Common Service:** GlassFish Admin Console
@@ -494,7 +552,6 @@ use auxiliary/scanner/http/glassfish_traversal
 
 Purpose: Reads sensitive files like `domain.xml` to steal password hashes.
 ____
-
 ## Port 5432 - PostgreSQL
 
 **Common Service:** PostgreSQL Database
@@ -515,7 +572,6 @@ use exploit/linux/postgres/postgres_copy_from_program_cmd_exec
 
 Purpose: Uses `COPY FROM PROGRAM` to execute commands on the OS.
 ___
-
 ## Port 5985 / 5986 - WinRM
 
 **Common Service:** Windows Remote Management
@@ -536,7 +592,6 @@ use exploit/windows/winrm/winrm_script_exec
 
 Purpose: Uploads and executes a payload using valid WinRM credentials.
 ___
-
 ## Port 5984 - Apache CouchDB
 
 **Common Service:** CouchDB NoSQL Database
@@ -557,7 +612,6 @@ use exploit/linux/http/apache_couchdb_cmd_exec
 
 Purpose: Creates an admin user and gains RCE via the Erlang protocol.
 ___
-
 ## Port 6379 - Redis
 
 **Common Service:** Redis In-Memory Data Store
@@ -578,7 +632,6 @@ use exploit/linux/redis/redis_unauthorized_exec
 
 Purpose: Writes an SSH key for root access if no authentication is present.
 ___
-
 ## Port 8009 - Apache JServ Protocol (AJP)
 
 **Common Service:** AJP Connector (Tomcat)
@@ -595,7 +648,6 @@ use exploit/linux/http/tomcat_ghostcat
 
 Purpose: Scans for and exploits a file read/inclusion vulnerability.
 ___
-
 ## Port 8282 - HTTP API Management
 
 **Common Service:** Often WSO2, Synapse, or custom APIs
@@ -616,7 +668,6 @@ use exploit/multi/http/wso2_uploader_rce
 
 Purpose: Exploits file upload functionality in WSO2 products for RCE.
 ___
-
 ## Port 8383 - HTTP Management Consoles
 
 **Common Service:** VMware vCenter, File Services
@@ -637,7 +688,6 @@ use exploit/multi/http/vmware_vcenter_analytics_upload_ova
 
 Purpose: Exploits an unauthenticated RCE in vCenter (CVE-2021-21972).
 ___
-
 ## Port 9000 / 9001 - Web Applications
 
 **Common Service:** Portainer (Docker), Jenkins, SonarQube
@@ -662,7 +712,6 @@ use exploit/multi/http/jenkins_script_console
 
 Purpose: Executes Groovy code in the Jenkins Script Console for a shell.
 ___
-
 ## Port 9200 - Elasticsearch
 
 **Common Service:** Elasticsearch REST API
@@ -684,7 +733,6 @@ use exploit/multi/elasticsearch/script_mvel_rce
 Purpose: Executes arbitrary Java code on older versions with scripting enabled.
 
   ___
-
 ## Port 10000 - Webmin
 
 **Common Service:** Webmin System Administration
@@ -704,6 +752,5 @@ use exploit/linux/http/webmin_backdoor
 ```
 
 Purpose: Exploits a backdoor in `password_change.cgi` for unauthenticated RCE.
-
 
 ---
